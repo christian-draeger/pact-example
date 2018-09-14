@@ -1,0 +1,9 @@
+{
+  "firstName":"Mocked first name",
+  "lastName":"Mocked last name",
+  "age": 4711,
+  "ids": {
+    "id": 5050,
+    "uuid": "Mocked someString"
+  }
+}
