@@ -1,4 +1,4 @@
-#Pact Example
+# Pact Example
 
 This is an example project to demonstrate Contract Testing via Pact. 
 The Example includes two applications where one is acting as a producer 
@@ -11,7 +11,7 @@ a working internet connection and getting a suitable response - can be decoupled
 mocking (in this example via WireMock) to get possibility to run and test the Consumer
 without all the given requisites and locally. Great!!! so far so good.
 
-#####but how to make sure the Producers response is in a Suitable format for the Consumer?
+##### but how to make sure the Producers response is in a Suitable format for the Consumer?
 
-##Let's make a Pact
+## Let's make a Pact
 
