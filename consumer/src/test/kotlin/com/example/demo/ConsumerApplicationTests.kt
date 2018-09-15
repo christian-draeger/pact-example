@@ -10,6 +10,5 @@ import org.springframework.test.context.junit4.SpringRunner
 class ConsumerApplicationTests {
 
     @Test
-    fun `will call producer on application context loads`() {
-    }
+    fun `will call producer on application context loads`() {}
 }
