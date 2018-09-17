@@ -24,6 +24,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <wiremock.port>18888</wiremock.port>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>khttp</groupId>
@@ -43,26 +47,55 @@
             <version>0.2.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-consumer-junit_2.11</artifactId>
+            <version>3.5.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>uk.co.deliverymind</groupId>
-                <artifactId>wiremock-maven-plugin</artifactId>
-                <version>2.9.0</version>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.26.0</version>
+
+            <configuration>
+                <images>
+                    <image>
+                        <name>rodolpheche/wiremock</name>
+                        <alias>pact-example--wiremock</alias>
+                        <run>
+                            <ports>
+                                <port>${wiremock.port}:8080</port>
+                            </ports>
+                            <wait>
+                                <http>
+                                    <url>http://localhost:${wiremock.port}/__admin</url>
+                                </http>
+                                <time>10000</time>
+                            </wait>
+                        </run>
+                    </image>
+                </images>
+            </configuration>
                 <executions>
                     <execution>
+                        <id>start</id>
                         <phase>test-compile</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>build</goal>
+                            <goal>start</goal>
                         </goals>
-                        <configuration>
-                            <dir>target/test-classes</dir>
-                            <params>
-                                --port=18888 --global-response-templating
-                            </params>
-                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
