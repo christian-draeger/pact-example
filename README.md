@@ -46,8 +46,8 @@ contract testing really shines in an environment with many services
 Having well-formed contract tests makes it easy for developers to avoid 
 version hell. Contract testing is the killer app for microservice development and deployment.
 
-In general, a contract is between a consumer (for example, a client that wants 
-to receive some data) and a provider (for example, an API on a server that 
+In general, a contract is between a consumer (for instance a client that wants 
+to receive some data) and a provider (for instance an API on a server that 
 provides the data the client needs). In microservice architectures, 
 the traditional terms client and server are not always appropriate -- for example, 
 when communication is achieved through message queues.
@@ -60,6 +60,85 @@ A major advantage of this pattern is that only parts of the communication
 that are actually used by the consumer(s) get tested. 
 This in turn means that any provider behaviour not used by current consumers 
 is free to change without breaking tests.
+
+### defining a pact
+We'll start defining our Pact at the **Consumer** Application. 
+I mean hey, we want to work Consumer Driven and who could know its 
+requirements regarding a producer API better then the Consumer itself?
+
+#### prerequisites on consumer side
+First let's add the relevant **Pact** dependency for our use-case to the consumer applications *pom.xml*
+``` xml
+<dependency>
+	<groupId>au.com.dius</groupId>
+	<artifactId>pact-jvm-consumer-java8_2.12</artifactId>
+	<version>3.5.21</version>
+	<scope>test</scope>
+</dependency>
+```
+
+Now we are able to define how the **Producer** APIs response needs to look like from the **Consumers** point of view.
+We'll begin by creating a test class named `ContractTest` that implements `ConsumerPactTestMk2`.
+
+You'll need to implement `providerName()`, `consumerName()`, `createPact()` and `runTest()`.
+
+The implementation of the `providerName()` method should return a string that describes the name of the provider API.
+Since our **Provider** is responsible for user data we should call it something like "user-data-provider":
+
+```override fun providerName(): String = "user-data-provider"```
+
+The implementation of the `consumerName()` method should return a string that describes the name of the consuming service.
+Since our **Consumer** is an cli-tool that displays user data we should call it something like "user-data-cli":
+
+```override fun consumerName(): String = "user-data-cli"```
+
+Now let's define how a request from the **Consumer** looks like and what's the 
+expected format of the payload by implementing the `createPact()` method.
+We are using the `PactDslWithProvider` builder to describe the request 
+and (because we are expecting a response with a JSON body)
+the `PactDslJsonBody` builder to define the payload:
+
+```
+override fun createPact(builder: PactDslWithProvider): RequestResponsePact {
+
+	val body = PactDslJsonBody()
+			.stringType("firstName")
+			.stringType("lastName")
+			.numberType("age")
+			.`object`("ids", PactDslJsonBody()
+					.integerType("id")
+					.uuid("uuid"))
+
+	return builder.uponReceiving("can get user data from user data provider")
+			.path("/user")
+			.method("GET")
+			.willRespondWith()
+			.status(200)
+			.body(body)
+			.toPact()
+}
+```
+
+Last but not least we should define our client side test based on the defined request we
+described in the step before. So let our *UserClient* (that is talking to the **Provider**)
+call a mockServer (that is created for us by **Pact**) as we defined it in our `createPact()` implementation.  
+
+``` kotlin
+override fun runTest(mockServer: MockServer) {
+   val expectedKeys = listOf("firstName", "lastName", "ids", "age")
+   val result = UserClient("${mockServer.getUrl()}/user").callProducer()
+   assertThat(result.keys).containsAll(expectedKeys)
+}
+```
+
+> ##### So your test class should look something like [THIS](http://link.me) afterwards.
+
+At this point we already archived a lot. We verifying our *UserClient* is working correctly and
+we created the contract definition - or better said, Pact generated one for us :) - our **Provider** will validate his Api against later on.
+You can have look at it under `/target/pacts/user-data-cli-user-data-provider.json`.
+
+
+### 
 
 #### Terminology
 
