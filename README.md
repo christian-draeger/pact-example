@@ -85,16 +85,34 @@ You'll need to implement `providerName()`, `consumerName()`, `createPact()` and 
 The implementation of the `providerName()` method should return a string that describes the name of the provider API.
 Since our **Provider** is responsible for user data we should call it something like "user-data-provider":
 
-``` kotlin
-override fun providerName(): String = "user-data-provider"
-```
+> using kotlin
+>``` kotlin
+>override fun providerName(): String = "user-data-provider"
+>```
+
+> using java
+>``` java
+>@Override
+>protected String providerName() {
+>	return "user-data-provider";
+>}
+>```
 
 The implementation of the `consumerName()` method should return a string that describes the name of the consuming service.
 Since our **Consumer** is an cli-tool that displays user data we should call it something like "user-data-cli":
 
-``` kotlin
-override fun consumerName(): String = "user-data-cli"
-```
+> using kotlin
+>``` kotlin
+>override fun consumerName(): String = "user-data-cli"
+>```
+
+> using java
+>``` java
+>@Override
+>protected String consumerName() {
+>	return "user-data-cli";
+>}
+>```
 
 Now let's define how a request from the **Consumer** looks like and what's the 
 expected format of the payload by implementing the `createPact()` method.
@@ -102,26 +120,49 @@ We are using the `PactDslWithProvider` builder to describe the request
 and (because we are expecting a response with a JSON body)
 the `PactDslJsonBody` builder to define the payload:
 
-``` kotlin
-override fun createPact(builder: PactDslWithProvider): RequestResponsePact {
+> using kotlin:
+>``` kotlin
+>override fun createPact(builder: PactDslWithProvider): RequestResponsePact {
+>
+>	val body = PactDslJsonBody()
+>			.stringType("firstName")
+>			.stringType("lastName")
+>			.numberType("age")
+>			.`object`("ids", PactDslJsonBody()
+>					.integerType("id")
+>					.uuid("uuid"))
+>
+>	return builder.uponReceiving("can get user data from user data provider")
+>			.path("/user")
+>			.willRespondWith()
+>			.status(200)
+>			.body(body)
+>			.toPact()
+>}
+>```
 
-	val body = PactDslJsonBody()
-			.stringType("firstName")
-			.stringType("lastName")
-			.numberType("age")
-			.`object`("ids", PactDslJsonBody()
-					.integerType("id")
-					.uuid("uuid"))
-
-	return builder.uponReceiving("can get user data from user data provider")
-			.path("/user")
-			.method("GET")
-			.willRespondWith()
-			.status(200)
-			.body(body)
-			.toPact()
-}
-```
+> using java:
+>``` java
+>@Override
+>protected RequestResponsePact createPact(PactDslWithProvider builder) {
+>	PactDslJsonBody body = new PactDslJsonBody()
+>			.stringType("firstName")
+>			.stringType("lastName")
+>			.numberType("age")
+>			.object("ids", new PactDslJsonBody()
+>				.integerType("id")
+>				.uuid("uuid")
+>			);
+>
+>	return builder.uponReceiving("can get user data from user data provider")
+>			.path("/user")
+>			.method("GET")
+>			.willRespondWith()
+>			.status(200)
+>			.body(body)
+>			.toPact();
+>}
+>```
 
 Last but not least we should define our client side test based on the defined request we
 described in the step before. So let our *UserClient* (that is talking to the **Provider**)
@@ -133,6 +174,16 @@ call a mockServer (that is created for us by **Pact**) as we defined it in our `
 >   val expectedKeys = listOf("firstName", "lastName", "ids", "age")
 >   val result = UserClient("${mockServer.getUrl()}/user").callProducer()
 >   assertThat(result.keys).containsAll(expectedKeys)
+>}
+>```
+
+>using java:
+>``` java
+>@Override
+>protected void runTest(MockServer mockServer) {
+>    List<String> expectedKeys = Arrays.asList("firstName", "lastName", "ids", "age");
+>    Map<String, String> result = new UserClient(mockServer.getUrl() + "/user").callProducer();
+>    assertThat(result.keySet()).containsAll(expectedKeys);
 >}
 >```
 
