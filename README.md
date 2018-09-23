@@ -63,9 +63,9 @@ is free to change without breaking tests.
 
 ## Defining a pact
 Defining a Pact should be splitted into 3 steps:
-* Define
-* Test
-* Publish 
+* [Define](#define)
+* [Test](#test)
+* [Publish](#publish)
 
 ### Define
 We'll start defining our Pact at the **Consumer** Application. 
@@ -171,7 +171,7 @@ the `PactDslJsonBody` builder to define the payload:
 >```
 
 ### Test
-Last but not least we should define our client side test based on the defined request we
+At this point we should define our client-side test based on the defined request we
 described in the step before. So let our *UserClient* (that is talking to the **Provider**)
 call a mockServer (that is created for us by **Pact**) as we defined it in our `createPact()` implementation.  
 
@@ -197,13 +197,13 @@ call a mockServer (that is created for us by **Pact**) as we defined it in our `
 > ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) if you are using Kotlin afterwards.
 > ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/JavaContractTest.java) if you are using Java afterwards.
 
-At this point we already archived a lot. We verifying our *UserClient* is working correctly and
+At this point we already archived a lot. We verified our *UserClient* is working correctly and
 we created the contract definition - or better said, Pact generated one for us :) - our **Provider** will validate his Api against later on.
-You can have look at it under `/target/pacts/user-data-cli-user-data-provider.json` (it should look like [THIS](consumer/src/test/resources/example-pact.json) one).
+You can have a look at it under `/target/pacts/user-data-cli-user-data-provider.json` (it should look similar to [THIS](consumer/src/test/resources/example-pact.json) one).
 
 ### Publish
 
-dfd
+coming soon ...
  
 ----------------
 
