@@ -11,7 +11,7 @@ a working internet connection and getting a suitable response) can be detached b
 mocking (in this example via WireMock) to run locally and independent. 
 Great!!! so far so good.
 
-##### but how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
+##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
 
 ## Let's make a Pact
 
@@ -19,7 +19,7 @@ Great!!! so far so good.
 Synonyms: agreement, protocol, deal, contract 
 >>~ Oxford Dictionaries​
 
-### intro to Consumer Driven Contract Testing
+### Intro to Consumer Driven Contract Testing
 
 The [concept](https://www.martinfowler.com/articles/consumerDrivenContracts.html) isn’t new, but with the mainstream acceptance of microservices, 
 it's important to remind people that consumer-driven contracts are an essential 
@@ -52,7 +52,7 @@ provides the data the client needs). In microservice architectures,
 the traditional terms client and server are not always appropriate -- for example, 
 when communication is achieved through message queues.
 
-### intro to Pact
+### Intro to Pact
 
 [Pact](https://docs.pact.io) is a consumer-driven contract testing tool. 
 This means the contract is written as part of the consumer tests. 
@@ -61,7 +61,13 @@ that are actually used by the consumer(s) get tested.
 This in turn means that any provider behaviour not used by current consumers 
 is free to change without breaking tests.
 
-### defining a pact
+## Defining a pact
+Defining a Pact should be splitted into 3 steps:
+* Define
+* Test
+* Publish 
+
+### Define
 We'll start defining our Pact at the **Consumer** Application. 
 I mean hey, we want to work Consumer Driven and who could know its 
 requirements regarding a producer API better then the Consumer itself?
@@ -164,6 +170,7 @@ the `PactDslJsonBody` builder to define the payload:
 >}
 >```
 
+### Test
 Last but not least we should define our client side test based on the defined request we
 described in the step before. So let our *UserClient* (that is talking to the **Provider**)
 call a mockServer (that is created for us by **Pact**) as we defined it in our `createPact()` implementation.  
@@ -192,11 +199,15 @@ call a mockServer (that is created for us by **Pact**) as we defined it in our `
 
 At this point we already archived a lot. We verifying our *UserClient* is working correctly and
 we created the contract definition - or better said, Pact generated one for us :) - our **Provider** will validate his Api against later on.
-You can have look at it under `/target/pacts/user-data-cli-user-data-provider.json`.
+You can have look at it under `/target/pacts/user-data-cli-user-data-provider.json` (it should look like [THIS](consumer/src/test/resources/example-pact.json) one).
 
+### Publish
 
-### 
+dfd
+ 
+----------------
 
+### Extra infos on Pact
 #### Terminology
 
 ##### Service Consumer

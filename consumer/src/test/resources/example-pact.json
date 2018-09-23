@@ -1,0 +1,121 @@
+{
+    "provider": {
+        "name": "user-data-provider"
+    },
+    "consumer": {
+        "name": "user-data-cli"
+    },
+    "interactions": [
+        {
+            "description": "can get user data from user data provider",
+            "request": {
+                "method": "GET",
+                "path": "/user"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "firstName": "string",
+                    "lastName": "string",
+                    "ids": {
+                        "id": 100,
+                        "uuid": "e2490de5-5bd3-43d5-b7c4-526e33f71304"
+                    },
+                    "age": 100
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.firstName": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.lastName": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.age": {
+                            "matchers": [
+                                {
+                                    "match": "number"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.ids.id": {
+                            "matchers": [
+                                {
+                                    "match": "integer"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.ids.uuid": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    },
+                    "header": {
+                        "Content-Type": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "application/json;\\s?charset=(utf|UTF)-8"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                },
+                "generators": {
+                    "body": {
+                        "$.firstName": {
+                            "type": "RandomString",
+                            "size": 20
+                        },
+                        "$.lastName": {
+                            "type": "RandomString",
+                            "size": 20
+                        },
+                        "$.age": {
+                            "type": "RandomInt",
+                            "min": 0,
+                            "max": 2147483647
+                        },
+                        "$.ids.id": {
+                            "type": "RandomInt",
+                            "min": 0,
+                            "max": 2147483647
+                        },
+                        "$.ids.uuid": {
+                            "type": "Uuid"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "pactSpecification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.21"
+        }
+    }
+}
