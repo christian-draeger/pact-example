@@ -85,12 +85,16 @@ You'll need to implement `providerName()`, `consumerName()`, `createPact()` and 
 The implementation of the `providerName()` method should return a string that describes the name of the provider API.
 Since our **Provider** is responsible for user data we should call it something like "user-data-provider":
 
-```override fun providerName(): String = "user-data-provider"```
+``` kotlin
+override fun providerName(): String = "user-data-provider"
+```
 
 The implementation of the `consumerName()` method should return a string that describes the name of the consuming service.
 Since our **Consumer** is an cli-tool that displays user data we should call it something like "user-data-cli":
 
-```override fun consumerName(): String = "user-data-cli"```
+``` kotlin
+override fun consumerName(): String = "user-data-cli"
+```
 
 Now let's define how a request from the **Consumer** looks like and what's the 
 expected format of the payload by implementing the `createPact()` method.
@@ -98,7 +102,7 @@ We are using the `PactDslWithProvider` builder to describe the request
 and (because we are expecting a response with a JSON body)
 the `PactDslJsonBody` builder to define the payload:
 
-```
+``` kotlin
 override fun createPact(builder: PactDslWithProvider): RequestResponsePact {
 
 	val body = PactDslJsonBody()
@@ -131,7 +135,7 @@ override fun runTest(mockServer: MockServer) {
 }
 ```
 
-> ##### So your test class should look something like [THIS](http://link.me) afterwards.
+> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) afterwards.
 
 At this point we already archived a lot. We verifying our *UserClient* is working correctly and
 we created the contract definition - or better said, Pact generated one for us :) - our **Provider** will validate his Api against later on.
