@@ -9,11 +9,11 @@ import java.util.*
 class DataController {
 
     @GetMapping("*")
-    fun `allways return dummy data`() = DemoModel()
+    fun `allways return dummy data`() = UserModel()
 
 }
 
-data class DemoModel(
+data class UserModel(
     val firstName: String = "Christian",
     val lastName: String = "Dräger",
     val age: Int = 30,
