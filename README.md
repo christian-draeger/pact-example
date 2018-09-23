@@ -127,15 +127,17 @@ Last but not least we should define our client side test based on the defined re
 described in the step before. So let our *UserClient* (that is talking to the **Provider**)
 call a mockServer (that is created for us by **Pact**) as we defined it in our `createPact()` implementation.  
 
-``` kotlin
-override fun runTest(mockServer: MockServer) {
-   val expectedKeys = listOf("firstName", "lastName", "ids", "age")
-   val result = UserClient("${mockServer.getUrl()}/user").callProducer()
-   assertThat(result.keys).containsAll(expectedKeys)
-}
-```
+>using kotlin:
+>``` kotlin
+>override fun runTest(mockServer: MockServer) {
+>   val expectedKeys = listOf("firstName", "lastName", "ids", "age")
+>   val result = UserClient("${mockServer.getUrl()}/user").callProducer()
+>   assertThat(result.keys).containsAll(expectedKeys)
+>}
+>```
 
-> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) afterwards.
+> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) if you are using Kotlin afterwards.
+> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/JavaContractTest.java) if you are using Java afterwards.
 
 At this point we already archived a lot. We verifying our *UserClient* is working correctly and
 we created the contract definition - or better said, Pact generated one for us :) - our **Provider** will validate his Api against later on.
