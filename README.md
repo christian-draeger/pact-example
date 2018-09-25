@@ -61,7 +61,7 @@ that are actually used by the consumer(s) get tested.
 This in turn means that any provider behaviour not used by current consumers 
 is free to change without breaking tests.
 
-[pact diagram]: pact_two_parts.png "pact diagram"
+![pact diagram](pact_two_parts.png)
 
 ## Defining a pact
 Defining a Pact should be splitted into 3 steps:
