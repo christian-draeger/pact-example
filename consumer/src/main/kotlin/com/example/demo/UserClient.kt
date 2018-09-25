@@ -13,7 +13,7 @@ class UserClient(
     fun callProducer(): Map<String, String> {
         val producerResponse = get(producerUrl, timeout = 5.0)
         if (producerResponse.statusCode != 200) {
-            throw RuntimeException(producerResponse.statusCode.toString())
+            throw RuntimeException("$producerUrl response was ${producerResponse.statusCode}")
         }
         return producerResponse.jsonObject.toMap()
     }

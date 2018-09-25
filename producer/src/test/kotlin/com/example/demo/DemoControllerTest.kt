@@ -19,7 +19,7 @@ class DemoControllerTest {
     @Test
     fun canCallDemoController() {
         given().port(port)
-        .`when`().get("/dummyData")
+        .`when`().get("/user")
         .then()
             .statusCode(200)
             .body("firstName", equalTo("Christian"))

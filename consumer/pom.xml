@@ -34,13 +34,6 @@
             <artifactId>khttp</artifactId>
             <version>0.1.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock</artifactId>
-            <version>2.18.0</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>net.wuerl.kotlin</groupId>
             <artifactId>assertj-core-kotlin</artifactId>
@@ -54,51 +47,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>0.26.0</version>
-
-            <configuration>
-                <images>
-                    <image>
-                        <name>rodolpheche/wiremock</name>
-                        <alias>pact-example--wiremock</alias>
-                        <run>
-                            <ports>
-                                <port>${wiremock.port}:8080</port>
-                            </ports>
-                            <wait>
-                                <http>
-                                    <url>http://localhost:${wiremock.port}/__admin</url>
-                                </http>
-                                <time>10000</time>
-                            </wait>
-                        </run>
-                    </image>
-                </images>
-            </configuration>
-                <executions>
-                    <execution>
-                        <id>start</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

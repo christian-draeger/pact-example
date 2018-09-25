@@ -61,6 +61,8 @@ that are actually used by the consumer(s) get tested.
 This in turn means that any provider behaviour not used by current consumers 
 is free to change without breaking tests.
 
+[pact diagram]: pact_two_parts.png "pact diagram"
+
 ## Defining a pact
 Defining a Pact should be splitted into 3 steps:
 * [Define](#define)
@@ -202,6 +204,19 @@ we created the contract definition - or better said, Pact generated one for us :
 You can have a look at it under `/target/pacts/user-data-cli-user-data-provider.json` (it should look similar to [THIS](consumer/src/test/resources/example-pact.json) one).
 
 ### Publish
+
+#### the Broker
+In this Example we are using a broker to publish our contracts to. For showcasing reasons we just start the Pact-Broker and a postgres
+database via docker-compose. In a real world scenario you probably want to run the broker permanently on a VM - so you should deploy it somewhere.
+But because this example is focusing on Pact itself we'll proceed using docker to quickly get a running Pact broker.
+
+more coming soon ...
+
+#### upload contract to broker
+
+coming soon ...
+
+### Verify
 
 coming soon ...
  

@@ -82,6 +82,32 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>com.dkanejs.maven.plugins</groupId>
+                <artifactId>docker-compose-maven-plugin</artifactId>
+                <version>2.0.1</version>
+                <inherited>false</inherited>
+                <configuration>
+                    <composeFile>${project.basedir}/docker-compose.yml</composeFile>
+                    <detachedMode>true</detachedMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>up</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>up</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>down</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>down</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

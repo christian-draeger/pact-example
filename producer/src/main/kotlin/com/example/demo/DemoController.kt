@@ -8,7 +8,7 @@ import java.util.*
 @RestController
 class DataController {
 
-    @GetMapping("*")
+    @GetMapping("/user")
     fun `allways return dummy data`() = UserModel()
 
 }
