@@ -8,7 +8,7 @@ The Example includes two applications where one is acting as a producer
 Both of the applications (producer and consumer) are testing there-self.
 The Consumer-Apps dependencies (having the Producer-App available, 
 a working internet connection and getting a suitable response) can be detached by
-mocking (in this example via WireMock) to run locally and independent. 
+mocking (e.g. WireMock) to run locally and independent. 
 Great!!! so far so good.
 
 ##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
