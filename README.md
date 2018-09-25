@@ -13,7 +13,7 @@ Great!!! so far so good.
 
 ##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
 
-## Let's make a Pact
+## Let's make a _Pact_
 
 > A formal agreement between individuals or parties.
 Synonyms: agreement, protocol, deal, contract 
