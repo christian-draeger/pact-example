@@ -3,7 +3,7 @@
 This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact. 
 The Example includes two applications where one is acting as a producer 
 (webservice with rest endpoint) and a consumer 
-(a CLI app that is hardly coupled on the producer).
+(a CLI app that prints data received from the producer to console if executed).
 
 Both of the applications (producer and consumer) are testing there-self.
 The Consumer-Apps dependencies (having the Producer-App available, 
