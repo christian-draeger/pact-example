@@ -323,7 +323,8 @@ If everything went well you should see your contract in the Pact-Broker UI.
 Now that we have a Contract defined by the Consumer our Provider have to verify it. 
 On the Provider side this test should always be executed in your build-chain to make sure you
 are not breaking things on Consumers side.
-coming soon ...
+
+more coming soon ...
  
 ----------------
 
