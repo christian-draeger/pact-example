@@ -2,6 +2,13 @@
 
 This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact.
 
+What's going on here:
+* Build-tool: Maven
+* Test implementation: Kotlin and Java
+* Contract repository: [Pact Broker](#publish)
+	* via docker-compose
+* Functional API tests: WireMock
+
 ## Why?
 Because Pact is supporting so much languages and different ways of doing things and 
 they have a distributed documentation it can get messy and a bit annoying to search 
