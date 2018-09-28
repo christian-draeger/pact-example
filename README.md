@@ -5,7 +5,9 @@ This is an example project to demonstrate **Consumer Driven Contract Testing** v
 ## Why?
 Because Pact is supporting so much languages and different ways of doing things and 
 they have a distributed documentation it can get messy and a bit annoying to search 
-or better say filter 
+or better say filter for the information you particularly want / need.
+For this reason I decided to write a compact step by step guide with working examples
+using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
 
 ## What? 
 The Example includes two applications where one is acting as a producer 
