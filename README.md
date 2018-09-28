@@ -1,6 +1,13 @@
 # Pact Example
 
-This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact. 
+This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact.
+
+## Why?
+Because Pact is supporting so much languages and different ways of doing things and 
+they have a distributed documentation it can get messy and a bit annoying to search 
+or better say filter 
+
+## What? 
 The Example includes two applications where one is acting as a producer 
 (webservice with rest endpoint) and a consumer 
 (a CLI app that prints data received from the producer to console if executed).
@@ -210,11 +217,90 @@ In this Example we are using a broker to publish our contracts to. For showcasin
 database via docker-compose. In a real world scenario you probably want to run the broker permanently on a VM - so you should deploy it somewhere.
 But because this example is focusing on Pact itself we'll proceed using docker to quickly get a running Pact broker.
 
-more coming soon ...
+The Pact Broker provides a repository for consumer driven contracts that:
+- solves the problem of how to share pacts between consumer and provider projects
+- allows you to decouple your service release cycles
+- provides API documentation that is guaranteed to be up-to date
+- shows you real examples of how your services interact
+- allows you to visualise the relationships between your services
+
+#### Broker Setup with docker-compose
+To archive a running Pact-Broker via docker-compose we put a file called `docker-compose.yml` in the root of our project.
+
+```yaml
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres
+    healthcheck:
+      test: psql postgres --command "select 1" -U postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+  broker_app:
+    image: dius/pact-broker
+    ports:
+      - "8080:80"
+    links:
+      - postgres
+    environment:
+      PACT_BROKER_DATABASE_USERNAME: postgres
+      PACT_BROKER_DATABASE_PASSWORD: password
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: postgres
+
+volumes:
+  postgresql:
+  postgresql_data:
+```
+
+Afterwards run: 
+
+	$ docker-compose up
+	
+>*Troubleshooting on Mac/Windows:* 
+>I get a "initdb: could not create directory "/var/lib/postgresql/data/pg_wal": No space left on device" error
+> * Your docker VM has probably run out of disk space. 
+> 	* Try deleting some old images. (`docker rmi -f $(docker images -a -q)`)
+>	* check your docker config and increase its disk image size
+
+Thereby we achieved to have a Pact-Broker running on port 8080. 
+To verify everything went well just open [http://localhost:8080](http://localhost:8080) in your browser.
+You should see the Pact-Broker UI but no uploaded contract for now. 
 
 #### upload contract to broker
 
-coming soon ...
+To upload the Contract add the following plugin to the consumers pom.xml
+
+```xml
+<plugin>
+	<groupId>au.com.dius</groupId>
+	<artifactId>pact-jvm-provider-maven_2.12</artifactId>
+	<version>3.5.11</version>
+	<configuration>
+		<pactBrokerUrl>http://localhost:8080</pactBrokerUrl>
+		<projectVersion>1.0.100</projectVersion>
+		<trimSnapshot>true</trimSnapshot>
+	</configuration>
+</plugin>
+```
+
+Afterwards you are able to upload your contract to the broker by executing the following command:
+
+	$ mvn verify pact:publish 
+	
+If everything went well you should see your contract in the Pact-Broker UI.
+
+![pact uploaded](uploaded-but-not-verified.png)
 
 ### Verify
 
