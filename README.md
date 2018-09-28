@@ -22,6 +22,8 @@ Great!!! so far so good.
 
 ##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
 
+In a good relationship we know what to expact from each other and so should our services do.
+
 ## Let's make a _Pact_
 
 > A formal agreement between individuals or parties.
