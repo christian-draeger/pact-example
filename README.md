@@ -72,7 +72,7 @@ is free to change without breaking tests.
 
 ![pact diagram](pact_two_parts.png)
 
-## Defining a pact
+## Defining a Pact
 Defining a Pact should be splitted into 3 steps:
 * [Define](#define)
 * [Test](#test)
@@ -304,8 +304,11 @@ If everything went well you should see your contract in the Pact-Broker UI.
 
 ![pact uploaded](uploaded-but-not-verified.png)
 
-### Verify
+## Verify a Pact
 
+Now that we have a Contract defined by the Consumer our Provider have to verify it. 
+On the Provider side this test should always be executed in your build-chain to make sure you
+are not breaking things on Consumers side.
 coming soon ...
  
 ----------------
