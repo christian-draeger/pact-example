@@ -72,6 +72,18 @@ that are actually used by the consumer(s) get tested.
 This in turn means that any provider behaviour not used by current consumers 
 is free to change without breaking tests.
 
+Pact enables consumer driven contract testing, 
+providing a mock service and DSL for the consumer project, 
+interaction playback and verification for the service provider project.
+
+The Pact family of testing frameworks 
+(Pact-JVM, Pact Ruby, Pact .NET, Pact Go, Pact.js, Pact Swift etc.) 
+provide support for Consumer Driven Contract Testing between dependent systems 
+where the integration is based on HTTP (or message queues for some of the implementations).
+
+We will focus on the HTTP based integration first and later on we have look at messaging queues 
+(on example with spring-boot and Kafka).
+
 ![pact diagram](pact_two_parts.png)
 
 ## Defining a Pact
@@ -217,7 +229,7 @@ You can have a look at it under `/target/pacts/user-data-cli-user-data-provider.
 ### Publish
 
 #### the Broker
-In this Example we are using a broker to publish our contracts to. For showcasing reasons we just start the Pact-Broker and a postgres
+In this Example we are using a broker to host our contracts. For showcasing reasons we just start the Pact-Broker and a postgres
 database via docker-compose. In a real world scenario you probably want to run the broker permanently on a VM - so you should deploy it somewhere.
 But because this example is focusing on Pact itself we'll proceed using docker to quickly get a running Pact broker.
 
