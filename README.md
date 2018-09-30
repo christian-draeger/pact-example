@@ -393,7 +393,9 @@ it is bringing some really handy annotations into the game - you'll see what i m
 
 > if you're not using [Spring](http://spring.io) you should have a look here: [junit-provider](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-provider-junit)
 
-> if you're not using [jUnit](https://junit.org/junit5/) you should have a look here: [maven-provider](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-provider-maven)
+> if you're not using [jUnit4](https://junit.org/junit4/) or [jUnit5](https://junit.org/junit5/) you should have a look here: [maven-provider](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-provider-maven)
+
+> if you're using [gradle](https://gradle.org) instead of [maven](https://maven.apache.org) you should have a look here: [gradle-provider](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-provider-gradle)
 
 #### Verification Test
 
@@ -493,6 +495,7 @@ closely to which features are available.
 ## HELPFUL LINKS
 * [https://docs.pact.io](https://docs.pact.io)
 * [https://github.com/DiUS/pact-jvm](https://github.com/DiUS/pact-jvm)
+* [https://github.com/pact-foundation/pact_broker](https://github.com/pact-foundation/pact_broker)
 * [https://www.schibsted.pl/blog/contract-testing](https://www.schibsted.pl/blog/contract-testing/)
 * [https://www.slideshare.net/paucls/consumerdriven-contract-testing](https://www.slideshare.net/paucls/consumerdriven-contract-testing)
 * [https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd](https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd)
