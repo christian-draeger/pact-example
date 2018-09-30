@@ -10,7 +10,7 @@ What's going on here:
 * Functional API tests: WireMock
 
 ## Why?
-Because Pact is supporting so much languages and different ways of doing things and 
+Because [Pact](https://docs.pact.io/) is supporting so much languages and different ways of doing things and 
 they have a distributed documentation it can get messy and a bit annoying to search 
 or better say filter for the information you particularly want / need.
 For this reason I decided to write a compact step by step guide with working examples
@@ -24,12 +24,13 @@ The Example includes two applications where one is acting as a producer
 Both of the applications (producer and consumer) are testing there-self.
 The Consumer-Apps dependencies (having the Producer-App available, 
 a working internet connection and getting a suitable response) can be detached by
-mocking (e.g. WireMock) to run locally and independent. 
+mocking (e.g. WireMock) to run locally and independent.
 Great!!! so far so good.
+We want go a step further and decouple the release cycles of our microservices.
 
 ##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
 
-In a good relationship we know what to expact from each other and so should our services do.
+In a good relationship we know what to expect from each other and so should our services do.
 
 ## Let's make a _Pact_
 
@@ -57,10 +58,11 @@ the supplier, who can then run all their consumers’ contract tests to determin
 if their changes are likely to cause problems.
 
 Contract testing is immediately applicable anywhere where you have two 
-services that need to communicate - such as an API client and a web front-end. 
+services that need to communicate - such as an API client and a web front-end
+or for instance to services communicating via messaging queues. 
 Although a single client and a single service is a common use case, 
 contract testing really shines in an environment with many services 
-(as is common for a microservice architecture). 
+(as common for a microservice architecture). 
 Having well-formed contract tests makes it easy for developers to avoid 
 version hell. Contract testing is the killer app for microservice development and deployment.
 
@@ -88,7 +90,7 @@ The Pact family of testing frameworks
 provide support for Consumer Driven Contract Testing between dependent systems 
 where the integration is based on HTTP (or message queues for some of the implementations).
 
-We will focus on the HTTP based integration first and later on we have look at messaging queues 
+We will focus on the HTTP based integration first and later on we have a look at messaging queues 
 (on example with spring-boot and Kafka).
 
 ![pact diagram](pact_two_parts.png)
@@ -152,8 +154,13 @@ Since our **Consumer** is an cli-tool that displays user data we should call it 
 >}
 >```
 
+> **Hint:** Don't test (worst-case scenario) all fields or HTTP status codes the Provider API supports with Pact. You don't want to break the Providers build on every change that's made over there (for instance if something changed that wouldn't influence the behavior on Consumer Apps side). Just be tide on the things the Consumer App really expects from the Provider API.
+
+> **Take away:** To verify how your Producer Client behaves on scenarios like network errors or getting crappy data from the API you should use WireMock.
+
 Now let's define how a request from the **Consumer** looks like and what's the 
 expected format of the payload by implementing the `createPact()` method.
+
 We are using the `PactDslWithProvider` builder to describe the request 
 and (because we are expecting a response with a JSON body)
 the `PactDslJsonBody` builder to define the payload:
@@ -236,7 +243,8 @@ You can have a look at it under `/target/pacts/user-data-cli-user-data-provider.
 ### Publish
 
 #### the Broker
-In this Example we are using a broker to host our contracts. For showcasing reasons we just start the Pact-Broker and a postgres
+In this Example we are using a broker to host our contracts. 
+For showcasing reasons we just start the [Pact-Broker](https://github.com/pact-foundation/pact_broker) and a postgres
 database via docker-compose. In a real world scenario you probably want to run the broker permanently on a VM - so you should deploy it somewhere.
 But because this example is focusing on Pact itself we'll proceed using docker to quickly get a running Pact broker.
 
@@ -325,18 +333,59 @@ If everything went well you should see your contract in the Pact-Broker UI.
 
 ![pact uploaded](uploaded-but-not-verified.png)
 
+In a real world project you should think about a suitable way to execute this command
+within your build chain - for instance everytime the Producer client implementation
+has changed on the consumer side.
+
 ## Verify a Pact
 
 Now that we have a Contract defined by the Consumer our Provider have to verify it. 
 On the Provider side this test should always be executed in your build-chain to make sure you
 are not breaking things on Consumers side.
 
-more coming soon ...
+### Verify
+#### prerequisites on Producer side
+In our case, we want to start our _Spring-Boot_-based Producer app and 
+have the Pact being checked against it.
+This is why we are going to use pact-jvm-provider-spring_2.12 package because
+it is bringing some really handy annotations into the game - you'll see what i mean in just a minute.
+
+```xml
+<dependency>
+	<groupId>au.com.dius</groupId>
+	<artifactId>pact-jvm-provider-spring_2.12</artifactId>
+	<version>3.5.23</version>
+</dependency>
+```
+
+> if you're not using [Spring](http://spring.io) you should have a look here: [junit-provider](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-provider-junit)
+
+> if you're not using [jUnit](https://junit.org/junit5/) you should have a look here: [maven-provider](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-provider-maven)
+
+#### Test
+
+The second step of our contract verification is creating a test for the 
+Producer using a mock client based on the contract.
+Our provider implementation will be driven by this contract in TDD fashion.
+The Test implementation on the Producer side is pretty straight forward.
+
+>using kotlin:
+>````kotlin
+>@RunWith(SpringRestPactRunner::class)
+>@Provider("user-data-provider")
+>@PactBroker(protocol = "http", host = "localhost", port = "8080")
+>@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+>
+>class UserDataProviderContractIT {
+>    @TestTarget
+>    val target: Target = SpringBootHttpTarget()
+>}
+>````
  
 ----------------
 
 ### Extra infos on Pact
-#### Terminology
+#### [Terminology](https://docs.pact.io/terminology)
 
 ##### Service Consumer
 A component that initiates a HTTP request to another component 
