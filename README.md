@@ -2,17 +2,43 @@
 
 This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact.
 
-What's going on here:
+What's going on here (in short):
 * Build-tool: Maven
 * Test implementation: Kotlin and Java
 * Contract repository: [Pact Broker](#publish)
 	* via docker-compose
 * Functional API tests: WireMock
 
-## Why?
+## Table of Contents
+* [Why?](#why?)
+* [What?](#what?)
+* [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
+* [Intro to Pact](#intro-to-pact)
+	* Consumer
+		* [Defining a Pact](#defining-a-pact)
+			* [Define](#define)
+			* [Test](#test)
+			* [Publish](#publish)
+				* [Pact Broker intro](#the-broker)
+				* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
+				* [Upload contract to broker](#upload-contract-to-broker)
+	* Producer / Provider
+		* [Verify](#verify)
+		* [Test](#verification-test)
+	* [Extra infos on Pact](#extra-infos-on-pact)
+* [Helpful links](#helpful-links)
+		
+
+## Why? 
+#####(the motivation of this project)
 Because [Pact](https://docs.pact.io/) is supporting so much languages and different ways of doing things and 
 they have a distributed documentation it can get messy and a bit annoying to search 
 or better say filter for the information you particularly want / need.
+Only for the JVM there are currently ~20 different extensions / dependencies.
+
+>In my opinion it's absolutely awesome to get decent support for different languages and frameworks,
+>but quite hard to keep track of all the existing stuff (especially if you're a newbie to Pact).
+
 For this reason I decided to write a compact step by step guide with working examples
 using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
 
@@ -90,7 +116,7 @@ The Pact family of testing frameworks
 provide support for Consumer Driven Contract Testing between dependent systems 
 where the integration is based on HTTP (or message queues for some of the implementations).
 
-We will focus on the HTTP based integration first and later on we have a look at messaging queues 
+We will focus on the **HTTP based integration first** and _later on_ we have a look at **messaging queues** 
 (on example with spring-boot and Kafka).
 
 ![pact diagram](pact_two_parts.png)
@@ -107,7 +133,10 @@ I mean hey, we want to work Consumer Driven and who could know its
 requirements regarding a producer API better then the Consumer itself?
 
 #### prerequisites on consumer side
-First let's add the relevant **Pact** dependency for our use-case to the consumer applications *pom.xml*
+First let's add the relevant **Pact** dependency for our use-case to the consumer applications *pom.xml*.
+I'm using the [pact-jvm-consumer-java8](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-consumer-java8) dependency here _(an extension for the pact DSL provided by [pact-jvm-consumer](https://github.com/DiUS/pact-jvm/blob/master/pact-jvm-consumer))_ because it
+provides a nice lambda based DSL for use with Junit to build consumer tests.
+
 ``` xml
 <dependency>
 	<groupId>au.com.dius</groupId>
@@ -242,7 +271,7 @@ You can have a look at it under `/target/pacts/user-data-cli-user-data-provider.
 
 ### Publish
 
-#### the Broker
+#### The Broker
 In this Example we are using a broker to host our contracts. 
 For showcasing reasons we just start the [Pact-Broker](https://github.com/pact-foundation/pact_broker) and a postgres
 database via docker-compose. In a real world scenario you probably want to run the broker permanently on a VM - so you should deploy it somewhere.
@@ -308,7 +337,7 @@ Thereby we achieved to have a Pact-Broker running on port 8080.
 To verify everything went well just open [http://localhost:8080](http://localhost:8080) in your browser.
 You should see the Pact-Broker UI but no uploaded contract for now. 
 
-#### upload contract to broker
+#### Upload contract to broker
 
 To upload the Contract add the following plugin to the consumers pom.xml
 
@@ -362,7 +391,7 @@ it is bringing some really handy annotations into the game - you'll see what i m
 
 > if you're not using [jUnit](https://junit.org/junit5/) you should have a look here: [maven-provider](https://github.com/DiUS/pact-jvm/tree/master/pact-jvm-provider-maven)
 
-#### Test
+#### Verification Test
 
 The second step of our contract verification is creating a test for the 
 Producer using a mock client based on the contract.
@@ -370,7 +399,7 @@ Our provider implementation will be driven by this contract in TDD fashion.
 The Test implementation on the Producer side is pretty straight forward.
 
 >using kotlin:
->````kotlin
+>```kotlin
 >@RunWith(SpringRestPactRunner::class)
 >@Provider("user-data-provider")
 >@PactBroker(protocol = "http", host = "localhost", port = "8080")
@@ -380,8 +409,24 @@ The Test implementation on the Producer side is pretty straight forward.
 >    @TestTarget
 >    val target: Target = SpringBootHttpTarget()
 >}
->````
- 
+>```
+
+>using java:
+>```java
+>@RunWith(SpringRestPactRunner.class)
+>@Provider("user-data-provider")
+>@PactBroker(protocol = "http", host = "localhost", port = "8080")
+>@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+>public class JavaUserDataProviderContractIT {
+>
+>    @TestTarget
+>    public final Target target = new SpringBootHttpTarget();
+>}
+>```
+
+> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/UserDataProviderContractIT.kt) if you are using Kotlin afterwards.
+> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java afterwards.
+
 ----------------
 
 ### Extra infos on Pact
@@ -440,3 +485,11 @@ provider) , using semantic versioning to indicate breaking changes.
 Each language implementation of Pact needs to implement the rules of this 
 specification, and advertise which version(s) are supported, corresponding 
 closely to which features are available.
+
+## HELPFUL LINKS
+* [https://docs.pact.io](https://docs.pact.io)
+* [https://github.com/DiUS/pact-jvm](https://github.com/DiUS/pact-jvm)
+* [https://www.schibsted.pl/blog/contract-testing](https://www.schibsted.pl/blog/contract-testing/)
+* [https://www.slideshare.net/paucls/consumerdriven-contract-testing](https://www.slideshare.net/paucls/consumerdriven-contract-testing)
+* [https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd](https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd)
+* [https://www.baeldung.com/pact-junit-consumer-driven-contracts](https://www.baeldung.com/pact-junit-consumer-driven-contracts)
