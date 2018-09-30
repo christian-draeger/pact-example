@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest
 @Provider("user-data-provider")
 @PactBroker(protocol = "http", host = "localhost", port = "8080")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
 class UserDataProviderContractIT {
     @TestTarget
     val target: Target = SpringBootHttpTarget()

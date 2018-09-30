@@ -118,7 +118,7 @@
                         <phase>verify</phase>
                         <goals>
                             <!-- remove this goal to keep the Pact-Broker running -->
-                            <goal>down</goal>
+                            <!-- <goal>down</goal> -->
                         </goals>
                     </execution>
                 </executions>

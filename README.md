@@ -14,19 +14,21 @@ What's going on here (in short):
 * [What?](#what?)
 * [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
 * [Intro to Pact](#intro-to-pact)
-	* [Consumer](#the-consuming-application)
-		* [Defining a Pact](#defining-a-pact)
-			* [Define](#define)
-			* [Test](#test)
-			* [Publish](#publish)
-				* [Pact Broker intro](#the-broker)
-				* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
-				* [Upload contract to broker](#upload-contract-to-broker)
-		* [Best Practices](#best-practices-(on-consumer-side))
-	* [Producer / Provider](#the-providing-application)
-		* [Verify a Pact](#verify-a-pact)
-			* [Test](#verification-test)
-		* [Best Practices](#best-practices-(on-producers-side))
+	* [REST](#rest-example)
+		* [Consumer](#the-consuming-application)
+			* [Defining a Pact](#defining-a-pact)
+				* [Define](#define)
+				* [Test](#test)
+				* [Publish](#publish)
+					* [Pact Broker intro](#the-broker)
+					* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
+					* [Upload contract to broker](#upload-contract-to-broker)
+			* [Best Practices](#best-practices-(on-consumer-side))
+		* [Producer / Provider](#the-providing-application)
+			* [Verify a Pact](#verify-a-pact)
+				* [Test](#verification-test)
+			* [Best Practices](#best-practices-(on-producers-side))
+	* [Messaging](#messaging-example)
 	* [Extra infos on Pact](#extra-infos-on-pact)
 * [Helpful links](#helpful-links)
 		
@@ -127,8 +129,8 @@ We will focus on the **HTTP based integration first** and _later on_ we have a l
 
 ![pact diagram](pact_two_parts.png)
 
-# The Consuming Application
-###### (the Consumer)
+# REST Example
+###### The Consuming Application
 ## Defining a Pact
 Defining a Pact should be splitted into 3 steps:
 * [Define](#define)
@@ -449,6 +451,10 @@ The Test implementation on the Producer side is pretty straight forward.
 ### Best Practices (on Producers side)
 * Ensure that the latest pact is being verified ([read more...](https://docs.pact.io/best_practices/provider#ensure-that-the-latest-pact-is-being-verified))
 * Ensure that Pact verify runs as part of your CI build
+
+# Messaging Example
+
+coming soon ...
 
 ----------------
 
