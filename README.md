@@ -43,7 +43,11 @@ For this reason I decided to write a compact step by step guide with working exa
 using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
 
 ## What? 
-The Example includes two applications where one is acting as a producer 
+Included examples are: How to test services that are talking REST as well as examples
+regarding how to ensure your services that are communication via messaging providing data in the 
+correct format (from the consumers point of view).   
+
+The **REST-Example** includes two applications where one is acting as a producer 
 (webservice with rest endpoint) and a consumer 
 (a CLI app that prints data received from the producer to console if executed).
 
