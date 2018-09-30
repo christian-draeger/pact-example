@@ -516,6 +516,7 @@ specification, and advertise which version(s) are supported, corresponding
 closely to which features are available.
 
 ## HELPFUL LINKS
+* [https://www.martinfowler.com/articles/consumerDrivenContracts.html](https://www.martinfowler.com/articles/consumerDrivenContracts.html)
 * [https://docs.pact.io](https://docs.pact.io)
 * [https://github.com/DiUS/pact-jvm](https://github.com/DiUS/pact-jvm)
 * [https://github.com/pact-foundation/pact_broker](https://github.com/pact-foundation/pact_broker)
