@@ -82,6 +82,19 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>com.dkanejs.maven.plugins</groupId>
@@ -104,7 +117,8 @@
                         <id>down</id>
                         <phase>verify</phase>
                         <goals>
-                            <!--<goal>down</goal>-->
+                            <!-- remove this goal to keep the Pact-Broker running -->
+                            <goal>down</goal>
                         </goals>
                     </execution>
                 </executions>
