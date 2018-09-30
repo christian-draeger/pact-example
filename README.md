@@ -14,7 +14,7 @@ What's going on here (in short):
 * [What?](#what?)
 * [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
 * [Intro to Pact](#intro-to-pact)
-	* Consumer
+	* [Consumer](#the-consuming-application)
 		* [Defining a Pact](#defining-a-pact)
 			* [Define](#define)
 			* [Test](#test)
@@ -22,9 +22,11 @@ What's going on here (in short):
 				* [Pact Broker intro](#the-broker)
 				* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
 				* [Upload contract to broker](#upload-contract-to-broker)
-	* Producer / Provider
-		* [Verify](#verify)
-		* [Test](#verification-test)
+		* [Best Practices](#best-practices-(on-consumer-side))
+	* [Producer / Provider](#the-providing-application)
+		* [Verify a Pact](#verify-a-pact)
+			* [Test](#verification-test)
+		* [Best Practices](#best-practices-(on-producers-side))
 	* [Extra infos on Pact](#extra-infos-on-pact)
 * [Helpful links](#helpful-links)
 		
@@ -125,6 +127,8 @@ We will focus on the **HTTP based integration first** and _later on_ we have a l
 
 ![pact diagram](pact_two_parts.png)
 
+# The Consuming Application
+###### (the Consumer)
 ## Defining a Pact
 Defining a Pact should be splitted into 3 steps:
 * [Define](#define)
@@ -370,6 +374,15 @@ In a real world project you should think about a suitable way to execute this co
 within your build chain - for instance everytime the Producer client implementation
 has changed on the consumer side.
 
+### Best Practices (on Consumer side)
+* Use Pact for contract testing, not functional testing of the provider!!! (read more [here](https://docs.pact.io/best_practices/consumer#use-pact-for-contract-testing-not-functional-testing-of-the-provider) and [here](https://docs.pact.io/best_practices/consumer/contract_tests_not_functional_tests))
+* Use Pact for isolated (unit) tests ([read more...](https://docs.pact.io/best_practices/consumer#use-pact-for-isolated-unit-tests))
+* Think carefully about how you use it for non-isolated tests (functional, integration tests) ([read more...](https://docs.pact.io/best_practices/consumer#think-carefully-about-how-you-use-it-for-non-isolated-tests-functional-integration-tests))
+* Always make sure you made the latest pact available to the Provider!
+* Ensure all calls to the Provider go through classes that have been tested with Pact. ([read more...](https://docs.pact.io/best_practices/consumer#ensure-all-calls-to-the-provider-go-through-classes-that-have-been-tested-with-pact))
+
+# The Providing Application
+###### (the Producer)
 ## Verify a Pact
 
 Now that we have a Contract defined by the Consumer our Provider have to verify it. 
@@ -432,6 +445,10 @@ The Test implementation on the Producer side is pretty straight forward.
 
 > ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/UserDataProviderContractIT.kt) if you are using Kotlin afterwards.
 > ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java afterwards.
+
+### Best Practices (on Producers side)
+* Ensure that the latest pact is being verified ([read more...](https://docs.pact.io/best_practices/provider#ensure-that-the-latest-pact-is-being-verified))
+* Ensure that Pact verify runs as part of your CI build
 
 ----------------
 
