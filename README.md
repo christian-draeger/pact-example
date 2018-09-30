@@ -34,10 +34,10 @@ What's going on here (in short):
 Because [Pact](https://docs.pact.io/) is supporting so much languages and different ways of doing things and 
 they have a distributed documentation it can get messy and a bit annoying to search 
 or better say filter for the information you particularly want / need.
-Only for the JVM there are currently ~20 different extensions / dependencies.
+Only for the JVM there are currently ~20 different extensions / dependencies (plugins not included).
 
 >In my opinion it's absolutely awesome to get decent support for different languages and frameworks,
->but quite hard to keep track of all the existing stuff (especially if you're a newbie to Pact).
+>but it can become quite hard to keep track of all the already existing stuff (especially if you're a newbie to Pact).
 
 For this reason I decided to write a compact step by step guide with working examples
 using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
