@@ -15,5 +15,5 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserDataProviderContractIT {
     @TestTarget
-    val target: Target = SpringBootHttpTarget()
+    var target: Target = SpringBootHttpTarget()
 }
