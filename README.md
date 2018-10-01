@@ -40,8 +40,8 @@ they have a distributed documentation it can get messy and a bit annoying to sea
 or better say filter for the information you particularly want / need.
 Only for the JVM there are currently ~20 different extensions / dependencies (plugins not included).
 
->In my opinion it's absolutely awesome to get decent support for different languages and frameworks,
->but it can become quite hard to keep track of all the already existing stuff (especially if you're a newbie to Pact).
+>_**In my opinion it's absolutely awesome to get decent support for different languages and frameworks,
+>but it can become quite hard to keep track of all the already existing stuff (especially if you're a newbie to Pact).**_
 
 For this reason I decided to write a compact step by step guide with working examples
 using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
