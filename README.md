@@ -527,4 +527,4 @@ closely to which features are available.
 * [https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/](https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/)
 
 ### Further Reading
-You can find a nice about integrating Pact or the Pact-Broker with [Spring-Cloud-Contract](https://cloud.spring.io/spring-cloud-contract/) over here: [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)
+You can find a nice article about integrating Pact or the Pact-Broker with [Spring-Cloud-Contract](https://cloud.spring.io/spring-cloud-contract/) over here: [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)
