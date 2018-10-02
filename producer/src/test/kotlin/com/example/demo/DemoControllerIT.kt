@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [ProducerApplication::class], webEnvironment = RANDOM_PORT)
-class DemoControllerTest {
+class DemoControllerIT {
 
     @LocalServerPort
     var port: Int = 0

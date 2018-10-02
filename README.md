@@ -419,7 +419,7 @@ Producer using a mock client based on the contract.
 Our provider implementation will be driven by this contract in TDD fashion.
 The Test implementation on the Producer side is pretty straight forward.
 
->using kotlin(not working atm because of [https://github.com/DiUS/pact-jvm/issues/784](https://github.com/DiUS/pact-jvm/issues/784)):
+>using kotlin (not working atm because of [https://github.com/DiUS/pact-jvm/issues/784](https://github.com/DiUS/pact-jvm/issues/784)):
 >```kotlin
 >@RunWith(SpringRestPactRunner::class)
 >@Provider("user-data-provider")
