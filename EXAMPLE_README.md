@@ -14,7 +14,7 @@ if you don't want the broker to shutdown run:
 * this will give you the opportunity to play around with the [Pact-Broker UI](http://localhost)
 
 
-	mvn clean verify -P-broker-down 
+	mvn clean verify -P-broker-down
 
 ### The Broker
 
