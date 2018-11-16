@@ -103,11 +103,10 @@
                     <groupId>com.dkanejs.maven.plugins</groupId>
                     <artifactId>docker-compose-maven-plugin</artifactId>
                     <version>2.2.0</version>
-                    <!--<inherited>false</inherited>-->
                     <configuration>
                         <composeFile>${project.basedir}/../docker-compose.yml</composeFile>
                         <detachedMode>true</detachedMode>
-                        <removeImages>true</removeImages>
+                        <!--<removeImages>true</removeImages>-->
                     </configuration>
                 </plugin>
             </plugins>
