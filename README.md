@@ -319,7 +319,7 @@ services:
   broker_app:
     image: dius/pact-broker
     ports:
-      - "8080:80"
+      - "80:80"
     links:
       - postgres
     environment:
@@ -343,8 +343,8 @@ Afterwards run:
 > 	* Try deleting some old images. (`docker rmi -f $(docker images -a -q)`)
 >	* check your docker config and increase its disk image size
 
-Thereby we achieved to have a Pact-Broker running on port 8080. 
-To verify everything went well just open [http://localhost:8080](http://localhost:8080) in your browser.
+Thereby we achieved to have a Pact-Broker running (on port 80). 
+To verify everything went well just open [http://localhost](http://localhost) in your browser.
 You should see the Pact-Broker UI but no uploaded contract for now. 
 
 #### Upload contract to broker
@@ -357,7 +357,7 @@ To upload the Contract add the following plugin to the consumers pom.xml
 	<artifactId>pact-jvm-provider-maven_2.12</artifactId>
 	<version>3.5.11</version>
 	<configuration>
-		<pactBrokerUrl>http://localhost:8080</pactBrokerUrl>
+		<pactBrokerUrl>http://localhost:80</pactBrokerUrl>
 		<projectVersion>1.0.100</projectVersion>
 		<trimSnapshot>true</trimSnapshot>
 	</configuration>
@@ -423,7 +423,7 @@ The Test implementation on the Producer side is pretty straight forward.
 >```kotlin
 >@RunWith(SpringRestPactRunner::class)
 >@Provider("user-data-provider")
->@PactBroker(protocol = "http", host = "localhost", port = "8080")
+>@PactBroker(protocol = "http", host = "localhost", port = "80")
 >@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 >
 >class UserDataProviderContractIT {
@@ -437,7 +437,7 @@ The Test implementation on the Producer side is pretty straight forward.
 >```java
 >@RunWith(SpringRestPactRunner.class)
 >@Provider("user-data-provider")
->@PactBroker(protocol = "http", host = "localhost", port = "8080")
+>@PactBroker(protocol = "http", host = "localhost", port = "80")
 >@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 >public class JavaUserDataProviderContractIT {
 >
