@@ -37,4 +37,30 @@
             <version>3.5.23</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>broker-down</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.dkanejs.maven.plugins</groupId>
+                        <artifactId>docker-compose-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>down</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>down</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

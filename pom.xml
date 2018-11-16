@@ -95,34 +95,22 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>com.dkanejs.maven.plugins</groupId>
-                <artifactId>docker-compose-maven-plugin</artifactId>
-                <version>2.0.1</version>
-                <inherited>false</inherited>
-                <configuration>
-                    <composeFile>${project.basedir}/docker-compose.yml</composeFile>
-                    <detachedMode>true</detachedMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>up</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>up</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>down</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <!-- remove this goal to keep the Pact-Broker running -->
-                            <!-- <goal>down</goal> -->
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.dkanejs.maven.plugins</groupId>
+                    <artifactId>docker-compose-maven-plugin</artifactId>
+                    <version>2.2.0</version>
+                    <!--<inherited>false</inherited>-->
+                    <configuration>
+                        <composeFile>${project.basedir}/../docker-compose.yml</composeFile>
+                        <detachedMode>true</detachedMode>
+                        <removeImages>true</removeImages>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
