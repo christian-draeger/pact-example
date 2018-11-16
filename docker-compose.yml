@@ -12,14 +12,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
-    volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
 
   broker_app:
     image: dius/pact-broker
     ports:
-      - "8080:80"
+      - "80:80"
     links:
       - postgres
     environment:
@@ -27,7 +24,4 @@ services:
       PACT_BROKER_DATABASE_PASSWORD: password
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
-
-volumes:
-  postgresql:
-  postgresql_data:
+      PACT_BROKER_LOG_LEVEL: DEBUG
