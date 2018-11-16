@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController
 class DataController {
 
     @GetMapping("/user")
-    fun `allways return dummy data`() = UserModel()
+    fun alwaysReturnDummyData() = UserModel()
 
 }
