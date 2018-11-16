@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @RunWith(SpringRestPactRunner::class)
 @Provider("user-data-provider")
-@PactBroker(protocol = "http", host = "localhost", port = "8080")
+@PactBroker(protocol = "http", host = "localhost", port = "80")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserDataProviderContractIT {
     @TestTarget

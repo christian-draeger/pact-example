@@ -12,7 +12,7 @@ import au.com.dius.pact.provider.spring.target.SpringBootHttpTarget;
 
 @RunWith(SpringRestPactRunner.class)
 @Provider("user-data-provider")
-@PactBroker(protocol = "http", host = "localhost", port = "8080")
+@PactBroker(protocol = "http", host = "localhost", port = "80")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class JavaUserDataProviderContractIT {
 
