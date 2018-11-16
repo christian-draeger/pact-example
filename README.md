@@ -466,6 +466,10 @@ props.put("pact.verifier.publishResults", "true")
 System.setProperties(props)
 ```
 
+If you run your tests and set the system property you should see a verified contract in the Pact-Broker UI.
+
+![pact uploaded](uploaded-and-verified.png)
+
 ### Best Practices (on Producers side)
 * Ensure that the latest pact is being verified ([read more...](https://docs.pact.io/best_practices/provider#ensure-that-the-latest-pact-is-being-verified))
 * Ensure that Pact verify runs as part of your CI build
