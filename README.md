@@ -312,9 +312,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
-    volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
 
   broker_app:
     image: dius/pact-broker
@@ -327,10 +324,7 @@ services:
       PACT_BROKER_DATABASE_PASSWORD: password
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
-
-volumes:
-  postgresql:
-  postgresql_data:
+      PACT_BROKER_LOG_LEVEL: DEBUG
 ```
 
 Afterwards run: 
@@ -358,7 +352,7 @@ To upload the Contract add the following plugin to the consumers pom.xml
 	<version>3.5.11</version>
 	<configuration>
 		<pactBrokerUrl>http://localhost:80</pactBrokerUrl>
-		<projectVersion>1.0.100</projectVersion>
+		<projectVersion>${project.version}</projectVersion>
 		<trimSnapshot>true</trimSnapshot>
 	</configuration>
 </plugin>
@@ -448,6 +442,29 @@ The Test implementation on the Producer side is pretty straight forward.
 
 > ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/UserDataProviderContractIT.kt) if you are using Kotlin afterwards.
 > ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java afterwards.
+
+In order to get the contract verification results replayed to the Pact-Broker 
+it's necessary to set the property `pact.verifier.publishResults=true`.
+This can rather be done by setting the property via the failsafe-plugin (which we use to run our integration tests) like so:
+```
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-failsafe-plugin</artifactId>
+	<configuration>
+		<systemPropertyVariables>
+			<pact.verifier.publishResults>true</pact.verifier.publishResults>
+			<pact.provider.version>${project.version}</pact.provider.version>
+		</systemPropertyVariables>
+	</configuration>
+</plugin>
+```
+
+Or by setting the property programmatically:
+```
+val props = System.getProperties()
+props.put("pact.verifier.publishResults", "true")
+System.setProperties(props)
+```
 
 ### Best Practices (on Producers side)
 * Ensure that the latest pact is being verified ([read more...](https://docs.pact.io/best_practices/provider#ensure-that-the-latest-pact-is-being-verified))
