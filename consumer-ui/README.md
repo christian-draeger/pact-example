@@ -1,4 +1,4 @@
-start project
+start project (http://localhost:1234)
 
 	yarn start
 	
