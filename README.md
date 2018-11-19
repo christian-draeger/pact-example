@@ -29,6 +29,8 @@ What's going on here (in short):
 			* [Verify a Pact](#verify-a-pact)
 				* [Test](#verification-test)
 			* [Best Practices](#best-practices-(on-producers-side))
+	* [Javascript Consumer](#javascript-consumer)
+	* [Consumer using Spring Cloud Contract](#consumer-using-spring-cloud-contract)
 	* [Messaging](#messaging-example)
 	* [Extra infos on Pact](#extra-infos-on-pact)
 * [Helpful links](#helpful-links)
@@ -130,13 +132,15 @@ We will focus on the **HTTP based integration first** and _later on_ we have a l
 
 ![pact diagram](pact_two_parts.png)
 
-# REST Example
+# REST Example (Server to Server communication)
 ###### The Consuming Application
 ## Defining a Pact
 Defining a Pact should be splitted into 3 steps:
 * [Define](#define)
 * [Test](#test)
 * [Publish](#publish)
+
+> If you are looking for an example on how to define a contract by using Javascript go [here](#javascript-consumer).  
 
 ### Define
 We'll start defining our Pact at the **Consumer** Application. 
@@ -475,7 +479,26 @@ If you run your tests and set the system property you should see a verified cont
 * Ensure that the latest pact is being verified ([read more...](https://docs.pact.io/best_practices/provider#ensure-that-the-latest-pact-is-being-verified))
 * Ensure that Pact verify runs as part of your CI build
 
+# Javascript Consumer
+
+As already mentioned Pact is supporting a bunch of languages. A very handy combination i saw in real world projects
+is defining a contract between a pure javascript based consumer (for instance a node.js app) doing ajax-requests
+against some backend server providing an API.
+
+more coming soon ...
+
+# Consumer using Spring-Cloud-Contract
+
+So far we saw different possibilities on doing consumer driven contract testing using Pact. But on the one hand you don't know
+your consumers (until they wrote a contract test) from time to time and on the other hand it's not nice to dictate a library or framework
+to your consumers. Assuming every application / team has to work with a certain tool doesn't sounds like a good idea regarding independent
+and autonomously working teams. Now the good news, [Spring-Cloud-Contract](https://spring.io/projects/spring-cloud-contract) has 
+support for Pact and can connect to a Pact broker.
+
+more coming soon ...
+
 # Messaging Example
+##### with Kafka
 
 coming soon ...
 
@@ -548,6 +571,7 @@ closely to which features are available.
 * [https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd](https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd)
 * [https://www.baeldung.com/pact-junit-consumer-driven-contracts](https://www.baeldung.com/pact-junit-consumer-driven-contracts)
 * [https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/](https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/)
+* [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)
 
 ### Further Reading
 You can find a nice article about integrating Pact or the Pact-Broker with [Spring-Cloud-Contract](https://cloud.spring.io/spring-cloud-contract/) over here: [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)

@@ -7,6 +7,7 @@ Playing around with the Example Project
 ### Run all tests
 
 * this will start and stop the Pact Broker automatically during test run
+* execute all tests (including pact verification and result publishing)
 
 	mvn clean verify
 	
