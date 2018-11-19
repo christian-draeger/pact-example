@@ -18,6 +18,7 @@
 
     <modules>
         <module>consumer</module>
+        <module>consumer-ui</module>
         <module>producer</module>
     </modules>
 
