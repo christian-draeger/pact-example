@@ -11,7 +11,7 @@
     "start": "react-scripts-parcel start",
     "startMocked": "REACT_APP_MOCKED=true react-scripts-parcel start",
     "wiremock": "wiremock --port=8081 --root-dir=./mock",
-    "start-with-mock": " run-p -r wiremock \"startMocked\"",
+    "start-with-mock": "run-p -r wiremock \"startMocked\"",
     "build": "react-scripts-parcel build",
     "test": "react-scripts-parcel test --env=jsdom",
     "eject": "react-scripts-parcel eject"
@@ -30,6 +30,7 @@
     ]
   },
   "devDependencies": {
+    "@pact-foundation/pact": "^7.0.3",
     "babel-core": "^6.26.3",
     "npm-run-all": "^4.1.3",
     "wiremock-standalone": "^2.19.0-1"
