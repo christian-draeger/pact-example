@@ -523,8 +523,7 @@ call a mockServer (that is created for us by **Pact**) as we defined it in our c
 	// more soon
 ```
 
-> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) if you are using Kotlin afterwards.
-> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/JavaContractTest.java) if you are using Java afterwards.
+> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt)
 
 # Consumer using Spring-Cloud-Contract
 
