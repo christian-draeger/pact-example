@@ -512,7 +512,7 @@ expected format of the payload.
 
 ``` javascript 1.6
 	// more soon
->```
+```
 
 ### Test
 At this point we should define our client-side test based on the defined request we
@@ -521,7 +521,7 @@ call a mockServer (that is created for us by **Pact**) as we defined it in our c
 
 ``` javascript 1.6
 	// more soon
->```
+```
 
 > ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) if you are using Kotlin afterwards.
 > ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/JavaContractTest.java) if you are using Java afterwards.
