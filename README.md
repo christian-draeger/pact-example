@@ -485,7 +485,46 @@ As already mentioned Pact is supporting a bunch of languages. A very handy combi
 is defining a contract between a pure javascript based consumer (for instance a node.js app) doing ajax-requests
 against some backend server providing an API.
 
-more coming soon ...
+In this example a basic React single page application is assumed. Your project structure could look [as follows](https://github.com/christian-draeger/pact-example/tree/master/consumer-ui).
+
+#### prerequisites
+First let's add the **Pact** dev dependency to the consumer applications *package.json*.
+
+``` json
+"devDependencies": {
+    "@pact-foundation/pact": "7.0.3"
+}
+```
+
+Now we are able to define how the **Producer** APIs response needs to look like from the **Consumers** point of view.
+
+``` javascript 1.6
+	// more soon
+}
+```
+
+> **Hint:** Don't test (worst-case scenario) all fields or HTTP status codes the Provider API supports with Pact. You don't want to break the Providers build on every change that's made over there (for instance if something changed that wouldn't influence the behavior on Consumer Apps side). Just be tide on the things the Consumer App really expects from the Provider API.
+
+> **Take away:** To verify how your Producer Client behaves on scenarios like network errors or getting crappy data from the API you should use WireMock.
+
+Now let's define how a request from the **Consumer** looks like and what's the 
+expected format of the payload.
+
+``` javascript 1.6
+	// more soon
+>```
+
+### Test
+At this point we should define our client-side test based on the defined request we
+described in the step before. So let our *UserClient* (that is talking to the **Provider**)
+call a mockServer (that is created for us by **Pact**) as we defined it in our consumer test.  
+
+``` javascript 1.6
+	// more soon
+>```
+
+> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) if you are using Kotlin afterwards.
+> ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/JavaContractTest.java) if you are using Java afterwards.
 
 # Consumer using Spring-Cloud-Contract
 
