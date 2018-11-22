@@ -47,14 +47,14 @@
                     </execution>
 
                     <execution>
-                        <id>yarn build</id>
-                        <phase>compile</phase>
+                        <id>yarn test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
 
                         <configuration>
-                            <arguments>build</arguments>
+                            <arguments>test</arguments>
                         </configuration>
                     </execution>
                 </executions>
