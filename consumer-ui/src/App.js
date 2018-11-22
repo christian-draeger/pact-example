@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getEndpoint} from "./utils/environment";
+import {fetchUserData} from "./client/userDataClient";
 
 class App extends Component {
     constructor(props) {
@@ -8,14 +8,9 @@ class App extends Component {
     }
 
     componentWillMount() {
-        fetch(getEndpoint(), {
-            method: 'GET',
-            mode: "cors"
-        })
+        fetchUserData()
             .then(response => response.json())
-            .then((data) => {
-                this.setState({data})
-            });
+            .then((data) => this.setState({data}));
     }
 
     render() {
