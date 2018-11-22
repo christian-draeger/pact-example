@@ -485,9 +485,10 @@ As already mentioned Pact is supporting a bunch of languages. A very handy combi
 is defining a contract between a pure javascript based consumer (for instance a node.js app) doing ajax-requests
 against some backend server providing an API.
 
-In this example a basic React single page application is assumed. Your project structure could look [as follows](https://github.com/christian-draeger/pact-example/tree/master/consumer-ui).
+In this example a basic [React](https://reactjs.org) app with [Jest](https://jestjs.io) as testing platform is assumed. 
+Your project structure could look [as follows](https://github.com/christian-draeger/pact-example/tree/master/consumer-ui).
 
-#### prerequisites
+#### Prerequisites
 First let's add the **Pact** dev dependency to the consumer applications *package.json*.
 
 ``` json
@@ -496,12 +497,28 @@ First let's add the **Pact** dev dependency to the consumer applications *packag
 }
 ```
 
+### Define
 Now we are able to define how the **Producer** APIs response needs to look like from the **Consumers** point of view.
 
 ``` javascript 1.6
 	// more soon
 }
 ```
+
+>*Troubleshooting for Jest*
+> I get a "SecurityError: localStorage is not available for opaque origins" error when executing tests 
+> * The root cause is often libraries looping over all jsdom properties and adding them to the global; 
+>	even if you never use localStorage in your tests, some library or test framework you are depending on is "using" it in this manner.
+>	Note that this looping-and-copying technique is explicitly unsupported by jsdom.
+>	* [jest issue](https://github.com/facebook/jest/issues/6766)
+> 	* [jsdom issue](https://github.com/jsdom/jsdom/issues/2304)
+>
+> To fix this you can set env config for non-browser environment by adding the following at the top of your test class: 
+>``` javascript 1.6
+>/**
+> * @jest-environment node
+> */
+>```
 
 > **Hint:** Don't test (worst-case scenario) all fields or HTTP status codes the Provider API supports with Pact. You don't want to break the Providers build on every change that's made over there (for instance if something changed that wouldn't influence the behavior on Consumer Apps side). Just be tide on the things the Consumer App really expects from the Provider API.
 
