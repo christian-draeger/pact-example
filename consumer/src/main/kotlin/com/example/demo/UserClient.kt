@@ -1,6 +1,7 @@
 package com.example.demo
 
 import khttp.get
+import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
@@ -19,3 +20,8 @@ class UserClient(
     }
 }
 
+fun JSONObject.toMap(): Map<String, String> {
+    val map: MutableMap<String, String> = linkedMapOf()
+    this.keys().forEach { key -> map[key] = this[key].toString() }
+    return map
+}
