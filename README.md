@@ -562,6 +562,47 @@ more coming soon ...
 
 coming soon ...
 
+# Spring Cloud Contract with Pact Broker
+## The Provider
+
+First let's add the Spring Cloud Contract maven plugin and set it up to use our 
+**Pact Broker** as its Contract repository.
+
+``` xml
+<plugin>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+	<version>2.0.2.RELEASE</version>
+	<extensions>true</extensions>
+	<configuration>
+		<contractsRepositoryUrl>pact://http://localhost:80</contractsRepositoryUrl>
+
+		<!-- We reuse the contract dependency section to set up the path
+		to the folder that contains the contract definitions. In our case the
+		path will be /groupId/artifactId/version/contracts -->
+		<contractDependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${project.artifactId}</artifactId>
+			<!-- When + is passed, a latest tag will be applied when fetching pacts -->
+			<version>+</version>
+		</contractDependency>
+
+		<!-- The contracts mode can't be classpath -->
+		<contractsMode>REMOTE</contractsMode>
+	</configuration>
+	<!-- Don't forget to add spring-cloud-contract-pact to the classpath! -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-pact</artifactId>
+			<version>2.0.2.RELEASE</version>
+		</dependency>
+	</dependencies>
+</plugin>
+```
+
+more coming soon ...
+
 ----------------
 
 ### Extra infos on Pact
@@ -632,6 +673,10 @@ closely to which features are available.
 * [https://www.baeldung.com/pact-junit-consumer-driven-contracts](https://www.baeldung.com/pact-junit-consumer-driven-contracts)
 * [https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/](https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/)
 * [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)
+* [https://reflectoring.io/consumer-driven-contract-provider-spring-cloud-contract](https://reflectoring.io/consumer-driven-contract-provider-spring-cloud-contract)
+* [https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_can_i_use_the_pact_broker](https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_can_i_use_the_pact_broker)
+* [https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter](https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter)
+* [https://www.youtube.com/watch?v=sAAklvxmPmk](https://www.youtube.com/watch?v=sAAklvxmPmk)
 
 ### Further Reading
 You can find a nice article about integrating Pact or the Pact-Broker with [Spring-Cloud-Contract](https://cloud.spring.io/spring-cloud-contract/) over here: [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)
