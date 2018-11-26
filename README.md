@@ -109,6 +109,11 @@ provides the data the client needs). In microservice architectures,
 the traditional terms client and server are not always appropriate -- for example, 
 when communication is achieved through message queues.
 
+#### Benefits in short
+* enable services to be deployed independently
+* enables teams to work independently from each other
+* enables verification of external endpoints - am i building what is wanted?
+
 ### Intro to Pact
 
 [Pact](https://docs.pact.io) is a consumer-driven contract testing tool. 
