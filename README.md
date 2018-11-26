@@ -30,7 +30,7 @@ What's going on here (in short):
 				* [Test](#verification-test)
 			* [Best Practices](#best-practices-(on-producers-side))
 	* [Javascript Consumer](#javascript-consumer)
-	* [Consumer using Spring Cloud Contract](#consumer-using-spring-cloud-contract)
+	* [Spring Cloud Contract meets Pact](#spring-cloud-contract-meets-pact)
 	* [Messaging](#messaging-example)
 	* [Extra infos on Pact](#extra-infos-on-pact)
 * [Helpful links](#helpful-links)
@@ -547,7 +547,7 @@ call a mockServer (that is created for us by **Pact**) as we defined it in our c
 
 > ##### So your test class should look something like [THIS](consumer-ui/src/userApiContract.pact.test.js)
 
-# Consumer using Spring-Cloud-Contract
+# _Spring Cloud Contract_ meets Pact
 
 So far we saw different possibilities on doing consumer driven contract testing using Pact. But on the one hand you don't know
 your consumers (until they wrote a contract test) from time to time and on the other hand it's not nice to dictate a library or framework
@@ -555,14 +555,10 @@ to your consumers. Assuming every application / team has to work with a certain 
 and autonomously working teams. Now the good news, [Spring-Cloud-Contract](https://spring.io/projects/spring-cloud-contract) has 
 support for Pact and can connect to a Pact broker.
 
+## The Consumer
+
 more coming soon ...
 
-# Messaging Example
-##### with Kafka
-
-coming soon ...
-
-# Spring Cloud Contract with Pact Broker
 ## The Provider
 
 First let's add the Spring Cloud Contract maven plugin and set it up to use our 
@@ -602,6 +598,11 @@ First let's add the Spring Cloud Contract maven plugin and set it up to use our
 ```
 
 more coming soon ...
+
+# Messaging Example
+##### with Kafka
+
+coming soon ...
 
 ----------------
 
