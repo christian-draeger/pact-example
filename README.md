@@ -292,17 +292,20 @@ You can have a look at it under `/target/pacts/user-data-cli-user-data-provider.
 ### Publish
 
 #### The Broker
-In this Example we are using a broker to host our contracts. 
+Sharing is caring - In this Example we are using a broker to host our contracts. 
 For showcasing reasons we just start the [Pact-Broker](https://github.com/pact-foundation/pact_broker) and a postgres
 database via docker-compose. In a real world scenario you probably want to run the broker permanently on a VM - so you should deploy it somewhere.
 But because this example is focusing on Pact itself we'll proceed using docker to quickly get a running Pact broker.
 
 The Pact Broker provides a repository for consumer driven contracts that:
+- tells you which versions of your applications can be deployed safely together
+- 
 - solves the problem of how to share pacts between consumer and provider projects
 - allows you to decouple your service release cycles
 - provides API documentation that is guaranteed to be up-to date
 - shows you real examples of how your services interact
 - allows you to visualise the relationships between your services
+- can integrate with other systems, such as Slack or your CI server, via webhooks
 
 #### Broker Setup with docker-compose
 To archive a running Pact-Broker via docker-compose we put a file called `docker-compose.yml` in the root of our project.
