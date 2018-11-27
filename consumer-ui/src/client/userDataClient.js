@@ -1,8 +1,5 @@
-import {getEndpoint} from "../utils/environment";
+import axios from "axios";
 
-export const fetchUserData = () => {
-    return fetch(getEndpoint(), {
-        method: 'GET',
-        mode: "cors"
-    })
+export const fetchUserData = (url) => {
+    return axios.get(url)
 };

@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import {fetchUserData} from "./client/userDataClient";
+import {getEndpoint} from "./utils/environment";
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {data: {}};
+        this.state = {
+            data: {}
+        };
     }
 
     componentWillMount() {
-        fetchUserData()
-            .then(response => response.json())
-            .then((data) => this.setState({data}));
+        fetchUserData(getEndpoint())
+            .then(({data}) => this.setState({data}));
     }
 
     render() {
