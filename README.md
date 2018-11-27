@@ -668,6 +668,7 @@ closely to which features are available.
 * [https://docs.pact.io](https://docs.pact.io)
 * [https://github.com/DiUS/pact-jvm](https://github.com/DiUS/pact-jvm)
 * [https://github.com/pact-foundation/pact_broker](https://github.com/pact-foundation/pact_broker)
+* [https://github.com/pact-foundation/pact-js](https://github.com/pact-foundation/pact-js)
 * [https://www.schibsted.pl/blog/contract-testing](https://www.schibsted.pl/blog/contract-testing/)
 * [https://www.slideshare.net/paucls/consumerdriven-contract-testing](https://www.slideshare.net/paucls/consumerdriven-contract-testing)
 * [https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd](https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd)
