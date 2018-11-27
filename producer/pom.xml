@@ -50,6 +50,38 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
+            <!-- using spring cloud contract with pact broker -->
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>2.0.2.RELEASE</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <contractsRepositoryUrl>pact://http://localhost:80</contractsRepositoryUrl>
+
+                    <!-- We reuse the contract dependency section to set up the path
+                    to the folder that contains the contract definitions. In our case the
+                    path will be /groupId/artifactId/version/contracts -->
+                    <contractDependency>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>${project.artifactId}</artifactId>
+                        <!-- When + is passed, a latest tag will be applied when fetching pacts -->
+                        <version>+</version>
+                    </contractDependency>
+
+                    <!-- The contracts mode can't be classpath -->
+                    <contractsMode>REMOTE</contractsMode>
+                </configuration>
+                <!-- Don't forget to add spring-cloud-contract-pact to the classpath! -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.cloud</groupId>
+                        <artifactId>spring-cloud-contract-pact</artifactId>
+                        <version>2.0.2.RELEASE</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
