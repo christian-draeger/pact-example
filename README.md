@@ -132,8 +132,7 @@ The Pact family of testing frameworks
 provide support for Consumer Driven Contract Testing between dependent systems 
 where the integration is based on HTTP (or message queues for some of the implementations).
 
-We will focus on the **HTTP based integration first** and _later on_ we have a look at **messaging queues** 
-(on example with spring-boot and Kafka).
+We will focus on the **HTTP based integration first** and _later on_ we have a look at **messaging queues**.
 
 ![pact diagram](pact_two_parts.png)
 
@@ -497,19 +496,39 @@ In this example a basic [React](https://reactjs.org) app with [Jest](https://jes
 Your project structure could look [as follows](https://github.com/christian-draeger/pact-example/tree/master/consumer-ui).
 
 #### Prerequisites
-First let's add the **Pact** dev dependency to the consumer applications *package.json*.
+First let's add the **pact** and **pact-node** dev dependency to the consumer applications *package.json*.
+
+> The `pact-node` dependency is needed to publish your pact file to the broker. This could also be solved by
+> using the pact maven or gradle plugin (depending on your build setup). But to keep the JS example a pure JS example
+> i decided to go the pact-node way here.
 
 ``` json
 "devDependencies": {
-    "@pact-foundation/pact": "7.0.3"
+    "@pact-foundation/pact": "7.0.3",
+    "@pact-foundation/pact-node": "6.20.0"
 }
 ```
 
 ### Define
 Now we are able to define how the **Producer** APIs response needs to look like from the **Consumers** point of view.
 
+#### Configure
+First of all we want Pact to to create a mock server for us, tell pact who is the consumer and the provider and where
+to place generated pact files.
+
 ``` javascript 1.6
-	// more soon
+import { Pact } from "@pact-foundation/pact";
+
+const pact = new Pact({
+		consumer: "user-data-ui",
+		provider: "user-data-provider",
+		port: 4711,
+		log: path.resolve(process.cwd(), "dist/logs", "pact.log"),
+		dir: path.resolve(process.cwd(), "dist/pacts"),
+		logLevel: "WARN",
+		spec: 1,
+		cors: true
+	});
 }
 ```
 
@@ -532,23 +551,116 @@ Now we are able to define how the **Producer** APIs response needs to look like 
 
 > **Take away:** To verify how your Producer Client behaves on scenarios like network errors or getting crappy data from the API you should use WireMock.
 
+#### Configure Mock Server
+
 Now let's define how a request from the **Consumer** looks like and what's the 
 expected format of the payload.
 
 ``` javascript 1.6
-	// more soon
+import { Matchers } from "@pact-foundation/pact";
+
+beforeEach((done) => 
+	pact.setup()
+		.then(() => {
+			// define expected response
+			const expectedResponse = {
+				firstName: Matchers.somethingLike("aValidFirstName"),
+				lastName: Matchers.somethingLike("aValidLastName"),
+				age: Matchers.integer(100)
+			};
+	
+			// define request
+			return pact.addInteraction({
+				state: "some user available",
+	
+				uponReceiving: "a user request",
+	
+				withRequest: {
+					method: "GET",
+					path: "/user",
+	
+					headers: {
+						Accept: Matchers.term({
+							matcher: "application/json",
+							generate: "application/json"
+						})
+					},
+				},
+	
+				willRespondWith: {
+					status: 200,
+					headers: {"Content-Type": "application/json; charset=utf-8"},
+					body: Matchers.somethingLike(expectedResponse)
+				}
+			});
+		})
+		.then(() => done())
+	);
+
 ```
 
 ### Test
 At this point we should define our client-side test based on the defined request we
 described in the step before. So let our *UserClient* (that is talking to the **Provider**)
-call a mockServer (that is created for us by **Pact**) as we defined it in our consumer test.  
+call the mockServer (that was created for us by **Pact**) as we defined it in our consumer test
+and validate our expected response. 
 
 ``` javascript 1.6
-	// more soon
+it("can load user data", () => {
+
+	expect.assertions(3);
+
+	const url = `http://localhost:4711/user`;
+
+	const promise = fetchUserData(url);
+
+	return promise.then(response => {
+		expect(response.status).toBe(200);
+		expect(response.headers['content-type']).toBe("application/json; charset=utf-8");
+		expect(response.data).toMatchObject({
+			firstName: "aValidFirstName",
+			lastName: "aValidLastName",
+			age: 100
+		});
+	});
+});
+```
+
+#### create pact file
+Don't forget to create the Pact file(s) after a successful test run.
+
+```
+afterAll(() => {
+	pact.finalize();
+});
+```
+
+### Publish
+
+Now that we have successfully generated a Pact file (you'll find it in your build dir if everything went well)
+we want to upload it to the Pact Broker. Generally you would do this in your CI build-chain,
+but for demo purpose i'm going to upload it by calling `publishContract()` whenever the pact test succeeded.
+
+
+``` javascript 1.6
+import { Publisher } from "@pact-foundation/pact-node";
+
+const publishContract = () => {
+
+	const options = {
+		pactFilesOrDirs: [path.resolve(process.cwd(), "dist/pacts")],
+		pactBroker: "http://localhost:80",
+		consumerVersion: "0.1.0"
+	};
+
+	new Publisher(options).publish();
+};
 ```
 
 > ##### So your test class should look something like [THIS](consumer-ui/src/userApiContract.pact.test.js)
+
+Having a look at Pact-Broker UI you should see something like:
+![pact uploaded](ui-uploaded-but-not-verified.png)
 
 # _Spring Cloud Contract_ meets Pact
 
@@ -603,7 +715,6 @@ First let's add the Spring Cloud Contract maven plugin and set it up to use our
 more coming soon ...
 
 # Messaging Example
-##### with Kafka
 
 coming soon ...
 
