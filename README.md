@@ -8,7 +8,9 @@ This is an example project to demonstrate **Consumer Driven Contract Testing** v
 
 What's going on here (in short):
 * Build-tool: Maven
-* Test implementation: Kotlin and Java
+* Test implementation examples: 
+	* Consumer: Kotlin and Java
+	* Producer: Kotlin, Java, Javascript
 * Contract repository: [Pact Broker](#publish)
 	* via docker-compose
 * Functional API tests: WireMock
@@ -43,7 +45,7 @@ What's going on here (in short):
 		
 
 ## Why? 
-##### (the motivation of this project)
+##### (the motivation of this example project)
 Because [Pact](https://docs.pact.io/) is supporting so much languages and different ways of doing things and 
 they have a distributed documentation it can get messy and a bit annoying to search 
 or better say filter for the information you particularly want / need.
@@ -55,32 +57,6 @@ Only for the JVM there are currently ~20 different extensions / dependencies (pl
 For this reason I decided to write a compact step by step guide with working examples
 using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
 
-## What? 
-Included examples are: How to test services that are talking REST as well as examples
-regarding how to ensure your services that are communication via messaging providing data in the 
-correct format (from the consumers point of view).   
-
-The **REST-Example** includes two applications where one is acting as a producer 
-(webservice with rest endpoint) and a consumer 
-(a CLI app that prints data received from the producer to console if executed).
-
-Both of the applications (producer and consumer) are testing there-self.
-The Consumer-Apps dependencies (having the Producer-App available, 
-a working internet connection and getting a suitable response) can be detached by
-mocking (e.g. WireMock) to run locally and independent.
-Great!!! so far so good.
-We want go a step further and decouple the release cycles of our microservices.
-
-##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
-
-In a good relationship we know what to expect from each other and so should our services do.
-
-## Let's make a _Pact_
-
-> A formal agreement between individuals or parties.
-Synonyms: agreement, protocol, deal, contract 
->>~ Oxford Dictionaries​
-
 ### Intro to Consumer Driven Contract Testing
 
 The [concept](https://www.martinfowler.com/articles/consumerDrivenContracts.html) isn’t new, but with the mainstream acceptance of microservices, 
@@ -91,7 +67,7 @@ service deployments.
 When two independently developed services are collaborating, 
 changes to the supplier’s API can cause failures for all its consumers. 
 Consuming services usually cannot test against live suppliers since such 
-tests are slow and brittle, so it’s best to use Test Doubles, 
+tests are slow and brittle, so it’s best to use Test Doubles (mocks), 
 leading to the danger that the test doubles get out of sync with the real 
 supplier service. Consumer teams can protect themselves from these failures 
 by using integration contract tests – tests that compare actual service 
@@ -138,7 +114,33 @@ The Pact family of testing frameworks
 provide support for Consumer Driven Contract Testing between dependent systems 
 where the integration is based on HTTP (or message queues for some of the implementations).
 
-We will focus on the **HTTP based integration first** and _later on_ we have a look at **messaging queues**.
+## What? 
+Included examples are: How to test services that are talking REST as well as examples
+regarding how to ensure your services that are communication via messaging providing data in the 
+correct format (from the consumers point of view).   
+
+The **REST-Example** includes two applications where one is acting as a producer 
+(webservice with rest endpoint) and a consumer 
+(a CLI app that prints data received from the producer to console if executed).
+
+Both of the applications (producer and consumer) are testing there-self.
+The Consumer-Apps dependencies (having the Producer-App available, 
+a working internet connection and getting a suitable response) can be detached by
+mocking (e.g. WireMock) to run locally and independent.
+Great!!! so far so good.
+We want go a step further and decouple the release cycles of our microservices.
+
+##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
+
+In a good relationship we know what to expect from each other and so should our services do.
+
+#### Let's make a _Pact_
+
+> A formal agreement between individuals or parties.
+Synonyms: agreement, protocol, deal, contract 
+>>~ Oxford Dictionaries​
+
+We will focus on the **[HTTP based integration](#rest-example) first** and _later on_ we have a look at [**messaging queues**](#messaging-example).
 
 ![pact diagram](pact_two_parts.png)
 
