@@ -7,13 +7,13 @@
 This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact.
 
 What's going on here (in short):
-* Build-tool: Maven
 * Test implementation examples: 
-	* Consumer: Kotlin and Java
-	* Producer: Kotlin, Java, Javascript
+	* Consumer: Kotlin, Java, Javascript
+	* Producer: Kotlin and Java
 * Contract repository: [Pact Broker](#publish)
 	* via docker-compose
 * Functional API tests: WireMock
+* Build-tool: Maven
 
 ## Table of Contents
 * [Why?](#why?)
