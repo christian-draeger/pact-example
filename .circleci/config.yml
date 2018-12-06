@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    machine:
+    docker:
       - image: circleci/openjdk:8-jdk
 
     working_directory: ~/repo
@@ -30,3 +30,16 @@ jobs:
 
       # run tests!
       - run: ./mvnw clean verify
+
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
+          when: always
+
+      - store_test_results:
+          path: ~/junit
+
+      - store_artifacts:
+          path: ~/junit
