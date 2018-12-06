@@ -149,6 +149,10 @@ Defining a Pact should be splitted into 3 steps:
 
 > If you are looking for an example on how to define a contract by using Javascript go [here](#javascript-consumer).  
 
+> **_A few words in advance:_ Don't get confused by the Consumer / Producer wording - it is not related to the data flow!** 
+> **Producer in the context of Pact describes who is providing the API.**
+> **That means for instance if you make a POST-request to an API - the API providing application is the _Producer_, where the application that is doing the request is the _Consumer_ on the other hand.**
+
 ### Define
 We'll start defining our Pact at the **Consumer** Application. 
 I mean hey, we want to work Consumer Driven and who could know its 
