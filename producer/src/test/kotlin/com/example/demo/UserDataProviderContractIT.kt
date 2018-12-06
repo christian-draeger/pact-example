@@ -1,6 +1,7 @@
 package com.example.demo
 
 import au.com.dius.pact.provider.junit.Provider
+import au.com.dius.pact.provider.junit.State
 import au.com.dius.pact.provider.junit.loader.PactBroker
 import au.com.dius.pact.provider.junit.target.Target
 import au.com.dius.pact.provider.junit.target.TestTarget
@@ -17,4 +18,9 @@ class UserDataProviderContractIT {
     @TestTarget
     @JvmField
     final val target: Target = SpringBootHttpTarget()
+
+    // only needed for Ajax Consumer
+    @State("some user available")
+    fun userAvailable() {
+    }
 }

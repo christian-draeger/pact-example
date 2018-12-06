@@ -21,7 +21,7 @@ describe("fetch user data", () => {
         log: path.resolve(process.cwd(), "dist/logs", "pact.log"),
         dir: path.resolve(process.cwd(), "dist/pacts"),
         logLevel: "WARN",
-        spec: 1,
+        spec: 2,
         cors: true
     });
 
@@ -32,8 +32,8 @@ describe("fetch user data", () => {
                 .then(() => {
                     // define expected response
                     const expectedResponse = {
-                        firstName: Matchers.somethingLike("aValidFirstName"),
-                        lastName: Matchers.somethingLike("aValidLastName"),
+                        firstName: Matchers.like("aValidFirstName"),
+                        lastName: Matchers.like("aValidLastName"),
                         age: Matchers.integer(100)
                     };
 
@@ -57,8 +57,8 @@ describe("fetch user data", () => {
 
                         willRespondWith: {
                             status: 200,
-                            headers: {"Content-Type": "application/json; charset=utf-8"},
-                            body: Matchers.somethingLike(expectedResponse)
+                            headers: {"Content-Type": "application/json;charset=UTF-8"},
+                            body: expectedResponse
                         }
                     });
                 })
@@ -76,7 +76,7 @@ describe("fetch user data", () => {
 
             return promise.then(response => {
                 expect(response.status).toBe(200);
-                expect(response.headers['content-type']).toBe("application/json; charset=utf-8");
+                expect(response.headers['content-type']).toBe("application/json;charset=UTF-8");
                 expect(response.data).toMatchObject({
                     firstName: "aValidFirstName",
                     lastName: "aValidLastName",
