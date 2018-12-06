@@ -462,8 +462,8 @@ The Test implementation on the Producer side is pretty straight forward.
 >}
 >```
 
-> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/UserDataProviderContractIT.kt) if you are using Kotlin afterwards.
-> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java afterwards.
+> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/UserDataProviderContractIT.kt) if you are using Kotlin.
+> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java.
 
 In order to get the contract verification results replayed to the Pact-Broker 
 it's necessary to set the property `pact.verifier.publishResults=true`.
@@ -536,7 +536,7 @@ const pact = new Pact({
 		log: path.resolve(process.cwd(), "dist/logs", "pact.log"),
 		dir: path.resolve(process.cwd(), "dist/pacts"),
 		logLevel: "WARN",
-		spec: 1,
+		spec: 2, // <-- it's important to use the same pact spec verion as the producer here
 		cors: true
 	});
 }
@@ -574,8 +574,8 @@ beforeEach((done) =>
 		.then(() => {
 			// define expected response
 			const expectedResponse = {
-				firstName: Matchers.somethingLike("aValidFirstName"),
-				lastName: Matchers.somethingLike("aValidLastName"),
+				firstName: Matchers.like("aValidFirstName"),
+				lastName: Matchers.like("aValidLastName"),
 				age: Matchers.integer(100)
 			};
 	
@@ -599,8 +599,8 @@ beforeEach((done) =>
 	
 				willRespondWith: {
 					status: 200,
-					headers: {"Content-Type": "application/json; charset=utf-8"},
-					body: Matchers.somethingLike(expectedResponse)
+					headers: {"Content-Type": "application/json;charset=UTF-8"},
+					body: expectedResponse
 				}
 			});
 		})
@@ -626,7 +626,7 @@ it("can load user data", () => {
 
 	return promise.then(response => {
 		expect(response.status).toBe(200);
-		expect(response.headers['content-type']).toBe("application/json; charset=utf-8");
+		expect(response.headers['content-type']).toBe("application/json;charset=UTF-8");
 		expect(response.data).toMatchObject({
 			firstName: "aValidFirstName",
 			lastName: "aValidLastName",
@@ -648,7 +648,7 @@ afterAll(() => {
 ### Publish
 
 Now that we have successfully generated a Pact file (you'll find it in your build dir if everything went well)
-we want to upload it to the Pact Broker. Generally you would do this in your CI build-chain,
+we want to upload it to the Pact Broker. Generally should be solved via a build step that should be executed when your tests are running on your CI system,
 but for demo purpose i'm going to upload it by calling `publishContract()` whenever the pact test succeeded.
 
 
@@ -671,6 +671,25 @@ const publishContract = () => {
 
 Having a look at Pact-Broker UI you should see something like:
 ![pact uploaded](ui-uploaded-but-not-verified.png)
+
+### make your Provider Test work
+When verifying a contract created by a Javascript consumer it is necessary to the following to your Producers Pact verification test.
+
+>using Kotlin:
+>``` kotlin
+>@State("some user available")
+>fun userAvailable() {}
+>```
+
+>using Java:
+>``` java
+>@State("some user available")
+>public void userAvailable() {}
+>```
+
+> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/UserDataProviderContractIT.kt) if you are using Kotlin.
+> ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java.
+
 
 # _Spring Cloud Contract_ meets Pact
 

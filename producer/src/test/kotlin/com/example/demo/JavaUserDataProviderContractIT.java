@@ -22,6 +22,5 @@ public class JavaUserDataProviderContractIT {
 
     // only needed for Ajax Consumer
     @State("some user available")
-    public void userAvailable() {
-    }
+    public void userAvailable() {}
 }

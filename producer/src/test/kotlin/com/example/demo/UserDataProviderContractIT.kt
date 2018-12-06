@@ -21,6 +21,5 @@ class UserDataProviderContractIT {
 
     // only needed for Ajax Consumer
     @State("some user available")
-    fun userAvailable() {
-    }
+    fun userAvailable() {}
 }
