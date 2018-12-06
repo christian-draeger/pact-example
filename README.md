@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/christian-draeger/pact-example.svg?branch=master)](https://travis-ci.org/christian-draeger/pact-example)
+
+![pact logo](pact-logo.png)
+
 # Pact Example
 
 This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact.
