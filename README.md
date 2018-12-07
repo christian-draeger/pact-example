@@ -508,7 +508,7 @@ against some backend server providing an API.
 
 ![js-2-server-diagram](js-2-server.png)
 
-In this example a basic [React](https://reactjs.org) app (running on node.js) with [Jest](https://jestjs.io) as testing platform is assumed. 
+In this example a basic [React](https://reactjs.org) app with [Jest](https://jestjs.io) as testing platform is assumed. 
 Your project structure could look [as follows](https://github.com/christian-draeger/pact-example/tree/master/consumer-ui).
 
 #### Prerequisites
