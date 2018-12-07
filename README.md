@@ -310,7 +310,6 @@ But because this example is focusing on Pact itself we'll proceed using docker t
 
 The Pact Broker provides a repository for consumer driven contracts that:
 - tells you which versions of your applications can be deployed safely together
-- 
 - solves the problem of how to share pacts between consumer and provider projects
 - allows you to decouple your service release cycles
 - provides API documentation that is guaranteed to be up-to date
@@ -818,6 +817,7 @@ closely to which features are available.
 * [https://www.slideshare.net/paucls/consumerdriven-contract-testing](https://www.slideshare.net/paucls/consumerdriven-contract-testing)
 * [https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd](https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd)
 * [https://www.baeldung.com/pact-junit-consumer-driven-contracts](https://www.baeldung.com/pact-junit-consumer-driven-contracts)
+* [https://kreuzwerker.de/blog/writing-contract-tests-with-pact-in-spring-boot](https://kreuzwerker.de/blog/writing-contract-tests-with-pact-in-spring-boot)
 * [https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/](https://blog.shanelee.name/2016/07/19/consumer-driven-contract-testing-using-pact/)
 * [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)
 * [https://reflectoring.io/consumer-driven-contract-provider-spring-cloud-contract](https://reflectoring.io/consumer-driven-contract-provider-spring-cloud-contract)
