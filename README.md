@@ -109,6 +109,8 @@ Pact enables consumer driven contract testing,
 providing a mock service and DSL for the consumer project, 
 interaction playback and verification for the service provider project.
 
+![pact diagram](pact_two_parts.png)
+
 The Pact family of testing frameworks 
 (Pact-JVM, Pact Ruby, Pact .NET, Pact Go, Pact.js, Pact Swift etc.) 
 provide support for Consumer Driven Contract Testing between dependent systems 
@@ -142,9 +144,10 @@ Synonyms: agreement, protocol, deal, contract
 
 We will focus on the **[HTTP based integration](#rest-example) first** and _later on_ we have a look at [**messaging queues**](#messaging-example).
 
-![pact diagram](pact_two_parts.png)
-
 # REST Example (Server to Server communication)
+
+![server-2-server-diagram](server-2-server.png)
+
 ###### The Consuming Application
 ## Defining a Pact
 Defining a Pact should be splitted into 3 steps:
