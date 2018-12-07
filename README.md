@@ -17,8 +17,8 @@ What's going on here (in short):
 
 ## Table of Contents
 * [Why?](#why?)
-* [What?](#what?)
 * [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
+* [What?](#what?)
 * [Intro to Pact](#intro-to-pact)
 	* [REST](#rest-example)
 		* [Consumer](#the-consuming-application)
