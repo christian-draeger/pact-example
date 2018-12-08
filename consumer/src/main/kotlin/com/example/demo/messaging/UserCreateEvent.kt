@@ -8,7 +8,7 @@ data class UserCreateEvent(
         val age: Int,
         val active: Boolean,
         val expiryDate: Date,
-        // val timestamp: Long,
+        val timestamp: Long,
         val ids: Identifiers
 )
 

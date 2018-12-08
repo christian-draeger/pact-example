@@ -396,6 +396,17 @@ In a real world project you should think about a suitable way to execute this co
 within your build chain - for instance everytime the Producer client implementation
 has changed on the consumer side.
 
+A nice **Pact-Broker** feature in my opinion is the network graph that shows which services have dependencies to on each other 
+and assure they there compatibility by having a Pact.
+
+![broker-network-graph](broker-network-graph.png)
+
+When clicking on an arrow in the graph you'll see a detailed view describing the exact properties 
+a certain consumer relies on regarding the producers API.
+Which is really great from Producers point of view to know it's consumers and furthermore what data they are consuming in detail.
+
+![broker-network-graph](broker-pact-details-consumer-cli.png)
+
 ### Best Practices (on Consumer side)
 * Use Pact for contract testing, not functional testing of the provider!!! (read more [here](https://docs.pact.io/best_practices/consumer#use-pact-for-contract-testing-not-functional-testing-of-the-provider) and [here](https://docs.pact.io/best_practices/consumer/contract_tests_not_functional_tests))
 * Use Pact for isolated (unit) tests ([read more...](https://docs.pact.io/best_practices/consumer#use-pact-for-isolated-unit-tests))
@@ -696,14 +707,22 @@ When verifying a contract created by a Javascript consumer it is necessary to th
 > ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/UserDataProviderContractIT.kt) if you are using Kotlin.
 > ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java.
 
+Having a look at Pact-Broker UI you should see something like:
+![pact uploaded](ui-uploaded-and-verified.png)
+
+When clicking on an arrow in the **Pact-Brokers** network graph overview you'll see a detailed view describing the exact properties 
+a certain consumer relies on regarding the producers API. 
+Which is really great from Producers point of view to know it's consumers and furthermore what data they are consuming in detail.
+
+![broker-network-graph](broker-pact-details-consumer-ui.png)
 
 # _Spring Cloud Contract_ meets Pact
 
-So far we saw different possibilities on doing consumer driven contract testing using Pact. But on the one hand you don't know
-your consumers (until they wrote a contract test) from time to time and on the other hand it's not nice to dictate a library or framework
-to your consumers. Assuming every application / team has to work with a certain tool doesn't sounds like a good idea regarding independent
+So far we saw different possibilities on doing consumer driven contract testing using Pact. But on the one hand you don't always know
+your consumers (until they wrote a contract test) and on the other hand it's not nice to dictate a library or framework
+to your consumers. Assuming every application (including the maintainers) has to work with a certain tool doesn't sounds like a good idea regarding independent
 and autonomously working teams. Now the good news, [Spring-Cloud-Contract](https://spring.io/projects/spring-cloud-contract) has 
-support for Pact and can connect to a Pact broker.
+support for Pact by generating Pact-Files if wanted which can of cause be published to a Pact broker.
 
 ## The Consumer
 
