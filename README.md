@@ -784,8 +784,8 @@ more coming soon ...
 
 This is basically working the exact same way as our [REST-example](#rest-example-server-to-server-communication).
 How does that make sense? It's because of Pact is not going to start a
-Kafka, ActiveMQ or whatever mock. When talking about consumer driven contract tests regarding messaging
-we talk about making a contract how the payload should look like.
+Kafka, ActiveMQ or whatever mock. When talking about consumer driven contract tests with Pact and messaging
+it's about to make sure you can deserialize an events payload - describe how the messages have to look like for your consumer. 
 
 **Let's start by defining our contract on the Consumer side again**
 
@@ -801,8 +801,13 @@ First let's add the relevant **Pact** dependency to the consumer applications *p
 </dependency>
 ```
 
-more coming soon ...
+## The Consumer
 
+You'll find a working example in [MessagingContractTest](consumer/src/test/kotlin/com/example/demo/MessagingContractTest.kt) class
+
+## The Provider
+
+more coming soon ...
 
 ----------------
 
