@@ -20,7 +20,7 @@ What's going on here (in short):
 * [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
 * [What?](#what?)
 * [Intro to Pact](#intro-to-pact)
-	* [REST](#rest-example)
+	* [REST](#rest-example-server-to-server-communication)
 		* [Consumer](#the-consuming-application)
 			* [Defining a Pact](#defining-a-pact)
 				* [Define](#define)
@@ -49,13 +49,14 @@ What's going on here (in short):
 Because [Pact](https://docs.pact.io/) is supporting so much languages and different ways of doing things and 
 they have a distributed documentation it can get messy and a bit annoying to search 
 or better say filter for the information you particularly want / need.
-Only for the JVM there are currently ~20 different extensions / dependencies (plugins not included).
+Only for the JVM there are currently ~20 different extensions / dependencies (plugins not included). 🤯
 
 >_**In my opinion it's absolutely awesome to get decent support for different languages and frameworks,
 >but it can become quite hard to keep track of all the already existing stuff (especially if you're a newbie to Pact).**_
 
 For this reason I decided to write a compact step by step guide with working examples
 using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
+(😏 and a Javascript Consumer implementation)
 
 ### Intro to Consumer Driven Contract Testing
 
@@ -89,7 +90,7 @@ In general, a contract is between a consumer (for instance a client that wants
 to receive some data) and a provider (for instance an API on a server that 
 provides the data the client needs). In microservice architectures, 
 the traditional terms client and server are not always appropriate -- for example, 
-when communication is achieved through message queues.
+when communication is achieved through message queues (we'll have a look at this as well).
 
 #### Benefits in short
 * enable services to be deployed independently
@@ -134,15 +135,25 @@ We want go a step further and decouple the release cycles of our microservices.
 
 ##### But how to make sure the Producers (supplier) response is in a Suitable format for the Consumer?
 
-In a good relationship we know what to expect from each other and so should our services do.
+🤝 In a good relationship we know what to expect from each other and so should our services do.
 
 #### Let's make a _Pact_
+
+What is a Pact? 🤷‍
 
 > A formal agreement between individuals or parties.
 Synonyms: agreement, protocol, deal, contract 
 >>~ Oxford Dictionaries​
 
-We will focus on the **[HTTP based integration](#rest-example) first** and _later on_ we have a look at [**messaging queues**](#messaging-example).
+In Terms of Contract Testing you should always proceed according to the following schema when implementing a Pact:
+
+* Start implementing on the Consumer side
+	* define your contract
+	* verify your contract against a mock
+	* publish your contract
+* End up implementing 
+
+Regarding the example implementations we will focus on the **[HTTP based integration](#rest-example-server-to-server-communication) first** and _later on_ we having a look at [**messaging queues**](#messaging-example).
 
 # REST Example (Server to Server communication)
 
@@ -396,8 +407,8 @@ In a real world project you should think about a suitable way to execute this co
 within your build chain - for instance everytime the Producer client implementation
 has changed on the consumer side.
 
-A nice **Pact-Broker** feature in my opinion is the network graph that shows which services have dependencies to on each other 
-and assure they there compatibility by having a Pact.
+A nice **Pact-Broker** feature in my opinion is the network graph that shows which services have dependencies to each other 
+or let's better say which of them assure they there compatibility by having a Pact. 🤗 
 
 ![broker-network-graph](broker-network-graph.png)
 
@@ -421,6 +432,7 @@ Which is really great from Producers point of view to know it's consumers and fu
 Now that we have a Contract defined by the Consumer our Provider have to verify it. 
 On the Provider side this test should always be executed in your build-chain to make sure you
 are not breaking things on Consumers side.
+In contrast to the consumer tests, provider verification is entirely driven by the Pact framework (there's nothing better than things getting simple ❤️). 
 
 ### Verify
 #### prerequisites on Producer side
@@ -770,7 +782,27 @@ more coming soon ...
 
 # Messaging Example
 
-coming soon ...
+This is basically working the exact same way as our [REST-example](#rest-example-server-to-server-communication).
+How does that make sense? It's because of Pact is not going to start a
+Kafka, ActiveMQ or whatever mock. When talking about consumer driven contract tests regarding messaging
+we talk about making a contract how the payload should look like.
+
+**Let's start by defining our contract on the Consumer side again**
+
+#### prerequisites
+First let's add the relevant **Pact** dependency to the consumer applications *pom.xml*.
+
+``` xml
+<dependency>
+	<groupId>au.com.dius</groupId>
+	<artifactId>pact-jvm-consumer-java8_2.12</artifactId>
+	<version>3.5.21</version>
+	<scope>test</scope>
+</dependency>
+```
+
+more coming soon ...
+
 
 ----------------
 
