@@ -803,7 +803,8 @@ First let's add the relevant **Pact** dependency to the consumer applications *p
 
 ## The Consumer
 
-You'll find a working example in [MessagingContractTest](consumer/src/test/kotlin/com/example/demo/MessagingContractTest.kt) class
+You'll find a working example in [MessagingContractTest](consumer/src/test/kotlin/com/example/demo/MessagingContractTest.kt) class.
+More documentation coming soon ...
 
 ## The Provider
 
