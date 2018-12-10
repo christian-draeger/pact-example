@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/christian-draeger/pact-example.svg?branch=master)](https://travis-ci.org/christian-draeger/pact-example)
 
-![pact logo](pact-logo.png)
+![contract](contract.jpg)
 
 # Pact Example
 
@@ -98,6 +98,8 @@ when communication is achieved through message queues (we'll have a look at this
 * enables verification of external endpoints - am i building what is wanted?
 
 ### Intro to Pact
+
+![pact logo](pact-logo.png)
 
 [Pact](https://docs.pact.io) is a consumer-driven contract testing tool. 
 This means the contract is written as part of the consumer tests. 
