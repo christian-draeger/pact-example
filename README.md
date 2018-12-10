@@ -407,17 +407,6 @@ In a real world project you should think about a suitable way to execute this co
 within your build chain - for instance everytime the Producer client implementation
 has changed on the consumer side.
 
-A nice **Pact-Broker** feature in my opinion is the network graph that shows which services have dependencies to each other 
-or let's better say which of them assure they there compatibility by having a Pact. 🤗 
-
-![broker-network-graph](broker-network-graph.png)
-
-When clicking on an arrow in the graph you'll see a detailed view describing the exact properties 
-a certain consumer relies on regarding the producers API.
-Which is really great from Producers point of view to know it's consumers and furthermore what data they are consuming in detail.
-
-![broker-network-graph](broker-pact-details-consumer-cli.png)
-
 ### Best Practices (on Consumer side)
 * Use Pact for contract testing, not functional testing of the provider!!! (read more [here](https://docs.pact.io/best_practices/consumer#use-pact-for-contract-testing-not-functional-testing-of-the-provider) and [here](https://docs.pact.io/best_practices/consumer/contract_tests_not_functional_tests))
 * Use Pact for isolated (unit) tests ([read more...](https://docs.pact.io/best_practices/consumer#use-pact-for-isolated-unit-tests))
@@ -518,6 +507,17 @@ System.setProperties(props)
 If you run your tests and set the system property you should see a verified contract in the Pact-Broker UI.
 
 ![pact uploaded](uploaded-and-verified.png)
+
+A nice **Pact-Broker** feature in my opinion is the network graph that shows which services have dependencies to each other 
+or let's better say which of them assure they there compatibility by having a Pact. 🤗 
+
+![broker-network-graph](broker-network-graph.png)
+
+When clicking on an arrow in the graph you'll see a detailed view describing the exact properties 
+a certain consumer relies on regarding the producers API.
+Which is really great from Producers point of view to know it's consumers and furthermore what data they are consuming in detail.
+
+![broker-network-graph](broker-pact-details-consumer-cli.png)
 
 ### Best Practices (on Producers side)
 * Ensure that the latest pact is being verified ([read more...](https://docs.pact.io/best_practices/provider#ensure-that-the-latest-pact-is-being-verified))
