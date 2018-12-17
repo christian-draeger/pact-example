@@ -2,7 +2,38 @@
 
 # Pact Example [![Build Status](https://travis-ci.org/christian-draeger/pact-example.svg?branch=master)](https://travis-ci.org/christian-draeger/pact-example)
 
-This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact.
+This is an example project to give an overview about **Consumer Driven Contract Testing**.
+
+## Table of Contents
+* [Prolog](#prolog)
+	* [Effective test suites with short feedback loop](#effective-test-suites-with-short-feedback-loop)
+	* [The problem with E2E integration testing](#the-problem-with-e2e-integration-testing)
+* [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
+* [What?](#what)
+* [Intro to Pact](#intro-to-pact)
+	* [The Motivation](#the-motivation-of-this-example-implementations)
+	* [REST](#rest-example-server-to-server-communication)
+		* [Consumer](#the-consuming-application)
+			* [Defining a Pact](#defining-a-pact)
+				* [Define](#define)
+				* [Test](#test)
+				* [Publish](#publish)
+					* [Pact Broker intro](#the-broker)
+					* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
+					* [Upload contract to broker](#upload-contract-to-broker)
+			* [Best Practices](#best-practices-(on-consumer-side))
+		* [Producer / Provider](#the-providing-application)
+			* [Verify a Pact](#verify-a-pact)
+				* [Test](#verification-test)
+			* [Best Practices](#best-practices-(on-producers-side))
+	* [Javascript Consumer](#javascript-consumer)
+		* [Define](#define-1)
+		* [Test](#test-1)
+		* [Publish](#publish-1)
+	* [Spring Cloud Contract meets Pact](#spring-cloud-contract-meets-pact)
+	* [Messaging](#messaging-example)
+	* [Extra infos on Pact](#extra-infos-on-pact)
+* [Helpful links](#helpful-links)
 
 ## Prolog
 
@@ -85,46 +116,6 @@ when communication is achieved through message queues (we'll have a look at this
 * enables teams to work independently from each other
 * enables verification of external endpoints - am i building what is wanted?
 
-What's going on here (in short):
-* Test implementation examples: 
-	* Consumer: Kotlin, Java, Javascript
-	* Producer: Kotlin and Java
-* Contract repository: [Pact Broker](#publish)
-	* via docker-compose
-* Functional API tests: WireMock
-* Build-tool: Maven
-
-## Table of Contents
-* [Prolog](#prolog)
-	* [Effective test suites with short feedback loop](#effective-test-suites-with-short-feedback-loop)
-	* [The problem with E2E integration testing](#the-problem-with-e2e-integration-testing)
-* [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
-* [What?](#what)
-* [Intro to Pact](#intro-to-pact)
-	* [The Motivation](#the-motivation-of-this-example-implementations)
-	* [REST](#rest-example-server-to-server-communication)
-		* [Consumer](#the-consuming-application)
-			* [Defining a Pact](#defining-a-pact)
-				* [Define](#define)
-				* [Test](#test)
-				* [Publish](#publish)
-					* [Pact Broker intro](#the-broker)
-					* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
-					* [Upload contract to broker](#upload-contract-to-broker)
-			* [Best Practices](#best-practices-(on-consumer-side))
-		* [Producer / Provider](#the-providing-application)
-			* [Verify a Pact](#verify-a-pact)
-				* [Test](#verification-test)
-			* [Best Practices](#best-practices-(on-producers-side))
-	* [Javascript Consumer](#javascript-consumer)
-		* [Define](#define-1)
-		* [Test](#test-1)
-		* [Publish](#publish-1)
-	* [Spring Cloud Contract meets Pact](#spring-cloud-contract-meets-pact)
-	* [Messaging](#messaging-example)
-	* [Extra infos on Pact](#extra-infos-on-pact)
-* [Helpful links](#helpful-links)
-
 ### Intro to Pact
 
 ![pact logo](pact-logo.png)
@@ -162,6 +153,16 @@ using Maven as build tool and provide each a Kotlin and a Java example of the te
 (😏 and a Javascript Consumer implementation)
 
 ## What? 
+
+What's going on here (in short):
+* Test implementation examples: 
+	* Consumer: Kotlin, Java, Javascript
+	* Producer: Kotlin and Java
+* Contract repository: [Pact Broker](#publish)
+	* via docker-compose
+* Functional API tests: WireMock
+* Build-tool: Maven
+
 Included examples are: How to test services that are talking REST as well as examples
 regarding how to ensure your services that are communication via messaging providing data in the 
 correct format (from the consumers point of view).   
