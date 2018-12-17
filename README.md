@@ -95,8 +95,11 @@ What's going on here (in short):
 * Build-tool: Maven
 
 ## Table of Contents
+* [Prolog](#prolog)
+	* [Effective test suites with short feedback loop](#effective-test-suites-with-short-feedback-loop)
+	* [The problem with E2E integration testing](#the-problem-with-e2e-integration-testing)
 * [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
-* [What?](#what?)
+* [What?](#what)
 * [Intro to Pact](#intro-to-pact)
 	* [The Motivation](#the-motivation-of-this-example-implementations)
 	* [REST](#rest-example-server-to-server-communication)
@@ -777,7 +780,7 @@ So far we saw different possibilities on doing consumer driven contract testing 
 your consumers (until they wrote a contract test) and on the other hand it's not nice to dictate a library or framework
 to your consumers. Assuming every application (including the maintainers) has to work with a certain tool doesn't sounds like a good idea regarding independent
 and autonomously working teams. Now the good news, [Spring-Cloud-Contract](https://spring.io/projects/spring-cloud-contract) has 
-support for Pact by generating Pact-Files if wanted which can of cause be published to a Pact broker.
+support for Pact by generating Pact-Files if wanted, which can of course be published to a Pact broker.
 
 ## The Consumer
 
