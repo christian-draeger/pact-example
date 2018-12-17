@@ -935,6 +935,4 @@ closely to which features are available.
 * [https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_can_i_use_the_pact_broker](https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_can_i_use_the_pact_broker)
 * [https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter](https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter)
 * [https://www.youtube.com/watch?v=sAAklvxmPmk](https://www.youtube.com/watch?v=sAAklvxmPmk)
-
-### Further Reading
-You can find a nice article about integrating Pact or the Pact-Broker with [Spring-Cloud-Contract](https://cloud.spring.io/spring-cloud-contract/) over here: [https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html](https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html)
+* [http://blog.pact.io/2018/07/24/contract-testing-a-graphql-api](http://blog.pact.io/2018/07/24/contract-testing-a-graphql-api/)
