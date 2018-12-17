@@ -924,6 +924,7 @@ closely to which features are available.
 * [https://github.com/pact-foundation/pact-js](https://github.com/pact-foundation/pact-js)
 * [https://www.schibsted.pl/blog/contract-testing](https://www.schibsted.pl/blog/contract-testing/)
 * [https://devblog.xero.com/trust-but-verify-using-pact-for-contract-testing-495a1e303a6](https://devblog.xero.com/trust-but-verify-using-pact-for-contract-testing-495a1e303a6)
+* [https://reflectoring.io/7-reasons-for-consumer-driven-contracts](https://reflectoring.io/7-reasons-for-consumer-driven-contracts/)
 * [https://www.slideshare.net/paucls/consumerdriven-contract-testing](https://www.slideshare.net/paucls/consumerdriven-contract-testing)
 * [https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd](https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd)
 * [https://www.baeldung.com/pact-junit-consumer-driven-contracts](https://www.baeldung.com/pact-junit-consumer-driven-contracts)
