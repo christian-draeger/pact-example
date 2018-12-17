@@ -4,61 +4,51 @@
 
 This is an example project to demonstrate **Consumer Driven Contract Testing** via Pact.
 
-What's going on here (in short):
-* Test implementation examples: 
-	* Consumer: Kotlin, Java, Javascript
-	* Producer: Kotlin and Java
-* Contract repository: [Pact Broker](#publish)
-	* via docker-compose
-* Functional API tests: WireMock
-* Build-tool: Maven
+## Prolog
 
-## Table of Contents
-* [Why?](#why?)
-* [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
-* [What?](#what?)
-* [Intro to Pact](#intro-to-pact)
-	* [REST](#rest-example-server-to-server-communication)
-		* [Consumer](#the-consuming-application)
-			* [Defining a Pact](#defining-a-pact)
-				* [Define](#define)
-				* [Test](#test)
-				* [Publish](#publish)
-					* [Pact Broker intro](#the-broker)
-					* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
-					* [Upload contract to broker](#upload-contract-to-broker)
-			* [Best Practices](#best-practices-(on-consumer-side))
-		* [Producer / Provider](#the-providing-application)
-			* [Verify a Pact](#verify-a-pact)
-				* [Test](#verification-test)
-			* [Best Practices](#best-practices-(on-producers-side))
-	* [Javascript Consumer](#javascript-consumer)
-		* [Define](#define-1)
-		* [Test](#test-1)
-		* [Publish](#publish-1)
-	* [Spring Cloud Contract meets Pact](#spring-cloud-contract-meets-pact)
-	* [Messaging](#messaging-example)
-	* [Extra infos on Pact](#extra-infos-on-pact)
-* [Helpful links](#helpful-links)
-		
+> When setting up a continuous deployment pipeline for any project, having a purposeful testing plan is of utmost importance.
 
-## Why? 
-##### (the motivation of this example project)
-Because [Pact](https://docs.pact.io/) is supporting so much languages and different ways of doing things and 
-they have a distributed documentation it can get messy and a bit annoying to search 
-or better say filter for the information you particularly want / need.
-Only for the JVM there are currently ~20 different extensions / dependencies (plugins not included). 🤯
+### Effective test suites with short feedback loop
 
->_**In my opinion it's absolutely awesome to get decent support for different languages and frameworks,
->but it can become quite hard to keep track of all the already existing stuff (especially if you're a newbie to Pact).**_
+An _effective_ test suite includes a combination of _testing strategies_ that leads to high test coverage, 
+that in turn drives _confidence_. 
+These strategies are typically in the form of unit, component, integration and acceptance tests. 
+Monitoring and alerting too.
 
-For this reason I decided to write a compact step by step guide with working examples
-using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
-(😏 and a Javascript Consumer implementation)
+The test suite needs to run wicked **_fast_**, and be **_reliable_**. 
+This cannot be stressed enough. If tests are flakey (i.e. often return false negatives or positives) 
+it cannot be depended on to give us the desired confidence that we need.
+
+Tests also need to run as early as possible in the continuous deployment pipeline to **_shorten the 
+feedback loop_** for the developer. So ideally, most tests should be designed to run when pull requests 
+are built (on standalone build agents that are sandboxed from the application environment). 
+To achieve this requirement, tests must make no assumption about the availability of any of its 
+external dependencies, and be designed to run in **_isolation_**.
+
+Tests that are designed to be fast, reliable and isolate failure will have a short and 
+effective feedback loop that informs the developer with confidence whether the product is working or not.
+
+### The problem with E2E integration testing
+
+Unit tests is a good example of one such testing process that achieves the desired effectiveness 
+being aspired to — they are fast, reliable and isolate failure. 
+However, unit tests on their own are not enough because they give no guarantee that the tested 
+units work well together.
+
+In the absence of the perfect unit test suite, end-to-end (E2E) integration tests are typically 
+the testing strategy of choice that is used to try and ascertain confidence in the system working 
+as a whole.
+
+Even though E2E tests are full of promise to assert the overall product working a whole 
+from a user’s perspective, they [quickly become a very bad idea](https://blog.thecodewhisperer.com/permalink/integrated-tests-are-a-scam) 
+because of their [awful feedback loop](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html) — slow, unreliable and depend on too many things at once.
 
 ### Intro to Consumer Driven Contract Testing
 
-The [concept](https://www.martinfowler.com/articles/consumerDrivenContracts.html) isn’t new, but with the mainstream acceptance of microservices, 
+An alternative testing strategy that complements the deficiency of unit tests but verifies that 
+components with external dependencies work together is integration contract testing.
+The [concept](https://www.martinfowler.com/articles/consumerDrivenContracts.html) isn’t new, 
+but with the mainstream acceptance of microservices, 
 it's important to remind people that consumer-driven contracts are an essential 
 part of a mature microservice testing portfolio, enabling independent 
 service deployments.
@@ -95,6 +85,43 @@ when communication is achieved through message queues (we'll have a look at this
 * enables teams to work independently from each other
 * enables verification of external endpoints - am i building what is wanted?
 
+What's going on here (in short):
+* Test implementation examples: 
+	* Consumer: Kotlin, Java, Javascript
+	* Producer: Kotlin and Java
+* Contract repository: [Pact Broker](#publish)
+	* via docker-compose
+* Functional API tests: WireMock
+* Build-tool: Maven
+
+## Table of Contents
+* [Intro to Consumer Driven Contract Testing](#intro-to-consumer-driven-contract-testing)
+* [What?](#what?)
+* [Intro to Pact](#intro-to-pact)
+	* [The Motivation](#the-motivation-of-this-example-implementations)
+	* [REST](#rest-example-server-to-server-communication)
+		* [Consumer](#the-consuming-application)
+			* [Defining a Pact](#defining-a-pact)
+				* [Define](#define)
+				* [Test](#test)
+				* [Publish](#publish)
+					* [Pact Broker intro](#the-broker)
+					* [Broker Setup with docker-compose](#broker-setup-with-docker-compose)
+					* [Upload contract to broker](#upload-contract-to-broker)
+			* [Best Practices](#best-practices-(on-consumer-side))
+		* [Producer / Provider](#the-providing-application)
+			* [Verify a Pact](#verify-a-pact)
+				* [Test](#verification-test)
+			* [Best Practices](#best-practices-(on-producers-side))
+	* [Javascript Consumer](#javascript-consumer)
+		* [Define](#define-1)
+		* [Test](#test-1)
+		* [Publish](#publish-1)
+	* [Spring Cloud Contract meets Pact](#spring-cloud-contract-meets-pact)
+	* [Messaging](#messaging-example)
+	* [Extra infos on Pact](#extra-infos-on-pact)
+* [Helpful links](#helpful-links)
+
 ### Intro to Pact
 
 ![pact logo](pact-logo.png)
@@ -116,6 +143,20 @@ The Pact family of testing frameworks
 (Pact-JVM, Pact Ruby, Pact .NET, Pact Go, Pact.js, Pact Swift etc.) 
 provide support for Consumer Driven Contract Testing between dependent systems 
 where the integration is based on HTTP (or message queues for some of the implementations).
+
+
+### the motivation of this example implementations
+Because [Pact](https://docs.pact.io/) is supporting so much languages and different ways of doing things and 
+they have a distributed documentation it can get messy and a bit annoying to search 
+or better say filter for the information you particularly want / need.
+Only for the JVM there are currently ~20 different extensions / dependencies (plugins not included). 🤯
+
+>_**In my opinion it's absolutely awesome to get decent support for different languages and frameworks,
+>but it can become quite hard to keep track of all the already existing stuff (especially if you're a newbie to Pact).**_
+
+For this reason I decided to write a compact step by step guide with working examples
+using Maven as build tool and provide each a Kotlin and a Java example of the test implementation.
+(😏 and a Javascript Consumer implementation)
 
 ## What? 
 Included examples are: How to test services that are talking REST as well as examples
@@ -876,6 +917,7 @@ closely to which features are available.
 * [https://github.com/pact-foundation/pact_broker](https://github.com/pact-foundation/pact_broker)
 * [https://github.com/pact-foundation/pact-js](https://github.com/pact-foundation/pact-js)
 * [https://www.schibsted.pl/blog/contract-testing](https://www.schibsted.pl/blog/contract-testing/)
+* [https://devblog.xero.com/trust-but-verify-using-pact-for-contract-testing-495a1e303a6](https://devblog.xero.com/trust-but-verify-using-pact-for-contract-testing-495a1e303a6)
 * [https://www.slideshare.net/paucls/consumerdriven-contract-testing](https://www.slideshare.net/paucls/consumerdriven-contract-testing)
 * [https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd](https://medium.com/techbeatscorner/consumer-driven-contracts-with-pact-jvm-and-groovy-e329196e4dd)
 * [https://www.baeldung.com/pact-junit-consumer-driven-contracts](https://www.baeldung.com/pact-junit-consumer-driven-contracts)
