@@ -194,9 +194,10 @@ In Terms of Contract Testing you should always proceed according to the followin
 	* publish your contract
 * End up verifying the contract on Producer side
 
-> **_A few words in advance:_ Don't get confused by the Consumer / Producer wording - it is not related to the data flow!** 
-> **Producer in the context of Pact describes who is providing the API.**
-> **That means for instance if you make a POST-request to an API - the API providing application is the _Producer_, where the application that is doing the request is the _Consumer_ on the other hand.**
+> **_A few words in advance:_** 
+>> Don't get confused by the Consumer / Producer wording - it is not related to the data flow!
+>> Producer in the context of Pact describes who is providing the API.
+>> That means for instance if you make a POST-request to an API - the API providing application is the _Producer_, where the application that is doing the request is the _Consumer_ on the other hand.
 
 
 Regarding the example implementations we will focus on the **[HTTP based integration](#rest-example-server-to-server-communication) first** and _later on_ we having a look at [**messaging queues**](#messaging-example).
