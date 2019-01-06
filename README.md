@@ -1,4 +1,4 @@
-![contract](contract.jpg)
+![contract](documentation/contract.jpg)
 
 # Pact Example [![Build Status](https://travis-ci.org/christian-draeger/pact-example.svg?branch=master)](https://travis-ci.org/christian-draeger/pact-example)
 
@@ -118,7 +118,7 @@ when communication is achieved through message queues (we'll have a look at this
 
 ### Intro to Pact
 
-![pact logo](pact-logo.png)
+![pact logo](documentation/pact-logo.png)
 
 [Pact](https://docs.pact.io) is a consumer-driven contract testing tool. 
 This means the contract is written as part of the consumer tests. 
@@ -131,7 +131,7 @@ Pact enables consumer driven contract testing,
 providing a mock service and DSL for the consumer project, 
 interaction playback and verification for the service provider project.
 
-![pact diagram](pact_two_parts.png)
+![pact diagram](documentation/pact_two_parts.png)
 
 The Pact family of testing frameworks 
 (Pact-JVM, Pact Ruby, Pact .NET, Pact Go, Pact.js, Pact Swift etc.) 
@@ -208,7 +208,7 @@ Regarding the example implementations we will focus on the **[HTTP based integra
 
 # REST Example (Server to Server communication)
 
-![server-2-server-diagram](server-2-server.png)
+![server-2-server-diagram](documentation/server-2-server.png)
 
 ###### The Consuming Application
 ## Defining a Pact
@@ -448,7 +448,7 @@ Afterwards you are able to upload your contract to the broker by executing the f
 	
 If everything went well you should see your contract in the Pact-Broker UI.
 
-![pact uploaded](uploaded-but-not-verified.png)
+![pact uploaded](documentation/uploaded-but-not-verified.png)
 
 In a real world project you should think about a suitable way to execute this command
 within your build chain - for instance everytime the Producer client implementation
@@ -553,18 +553,18 @@ System.setProperties(props)
 
 If you run your tests and set the system property you should see a verified contract in the Pact-Broker UI.
 
-![pact uploaded](uploaded-and-verified.png)
+![pact uploaded](documentation/uploaded-and-verified.png)
 
 A nice **Pact-Broker** feature in my opinion is the network graph that shows which services have dependencies to each other 
 or let's better say which of them assure they there compatibility by having a Pact. 🤗 
 
-![broker-network-graph](broker-network-graph.png)
+![broker-network-graph](documentation/broker-network-graph.png)
 
 When clicking on an arrow in the graph you'll see a detailed view describing the exact properties 
 a certain consumer relies on regarding the producers API.
 Which is really great from Producers point of view to know it's consumers and furthermore what data they are consuming in detail.
 
-![broker-network-graph](broker-pact-details-consumer-cli.png)
+![broker-network-graph](documentation/broker-pact-details-consumer-cli.png)
 
 ### Best Practices (on Producers side)
 * Ensure that the latest pact is being verified ([read more...](https://docs.pact.io/best_practices/provider#ensure-that-the-latest-pact-is-being-verified))
@@ -576,7 +576,7 @@ As already mentioned Pact is supporting a bunch of languages. A very handy combi
 is defining a contract between a pure javascript based consumer (for instance a node.js app) doing ajax-requests
 against some backend server providing an API.
 
-![js-2-server-diagram](js-2-server.png)
+![js-2-server-diagram](documentation/js-2-server.png)
 
 In this example a basic [React](https://reactjs.org) app with [Jest](https://jestjs.io) as testing platform is assumed. 
 Your project structure could look [as follows](https://github.com/christian-draeger/pact-example/tree/master/consumer-ui).
@@ -746,7 +746,7 @@ const publishContract = () => {
 > ##### So your test class should look something like [THIS](consumer-ui/src/userApiContract.pact.test.js)
 
 Having a look at Pact-Broker UI you should see something like:
-![pact uploaded](ui-uploaded-but-not-verified.png)
+![pact uploaded](documentation/ui-uploaded-but-not-verified.png)
 
 ### make your Provider Test work
 When verifying a contract created by a Javascript consumer it is necessary to the following to your Producers Pact verification test.
@@ -767,13 +767,13 @@ When verifying a contract created by a Javascript consumer it is necessary to th
 > ##### So your test class should look something like [THIS](producer/src/test/kotlin/com/example/demo/JavaUserDataProviderContractIT.java) if you are using Java.
 
 Having a look at Pact-Broker UI you should see something like:
-![pact uploaded](ui-uploaded-and-verified.png)
+![pact uploaded](documentation/ui-uploaded-and-verified.png)
 
 When clicking on an arrow in the **Pact-Brokers** network graph overview you'll see a detailed view describing the exact properties 
 a certain consumer relies on regarding the producers API. 
 Which is really great from Producers point of view to know it's consumers and furthermore what data they are consuming in detail.
 
-![broker-network-graph](broker-pact-details-consumer-ui.png)
+![broker-network-graph](documentation/broker-pact-details-consumer-ui.png)
 
 # _Spring Cloud Contract_ meets Pact
 
