@@ -357,7 +357,7 @@ call a mockServer (that is created for us by **Pact**) as we defined it in our `
 > ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/ContractTest.kt) if you are using Kotlin afterwards.
 > ##### So your test class should look something like [THIS](consumer/src/test/kotlin/com/example/demo/JavaContractTest.java) if you are using Java afterwards.
 
-At this point we already archived a lot. We verified our *UserClient* is working correctly and
+At this point we already achieved a lot. We verified our *UserClient* is working correctly and
 we created the contract definition - or better said, Pact generated one for us :) - our **Provider** will validate his Api against later on.
 You can have a look at it under `/target/pacts/user-data-cli-user-data-provider.json` (it should look similar to [THIS](consumer/src/test/resources/example-pact.json) one).
 
